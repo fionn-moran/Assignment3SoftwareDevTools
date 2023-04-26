@@ -1,4 +1,6 @@
 package models
 
-class CoffeeShopSales {
-}
+data class CoffeeShopSales (var saleID: Int = 0,
+                            var saleDescription : String,
+                            var saleDate : String,
+                            var isSaleFulfilled: Boolean = false)
