@@ -1,6 +1,6 @@
 import controllers.CoffeeShopAPI
+import utils.ScannerInput
 
-/*
 private val CoffeeShopAPI = CoffeeShopAPI()
 
 fun main() = runMenu()
@@ -53,5 +53,3 @@ fun runMenu() {
         }
     } while (true)
 }
-
- */
