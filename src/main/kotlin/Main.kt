@@ -77,7 +77,7 @@ fun listCoffeeShops() {
     logger.info { "listCoffeeShops() function invoked" }
 }
 
-/*
+
 fun updateCoffeeShop() {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
@@ -101,8 +101,6 @@ fun updateCoffeeShop() {
     }
 }
 
-
- */
 fun removeCoffeeShop() {
     logger.info { "removeCoffeeShop() function invoked" }
 }

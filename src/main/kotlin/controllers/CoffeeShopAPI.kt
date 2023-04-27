@@ -37,4 +37,6 @@ class CoffeeShopAPI {
         return false
     }
 
+    fun numberOfCoffeeShops() = coffeeShops.size
+
 }
