@@ -65,7 +65,7 @@ fun addCoffeeShop() {
     val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
     val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
     val dateAdded = ScannerInput.readNextLine("Enter the date the shop was added to the system: ")
-    val isAdded = CoffeeShopAPI.add(CoffeeShop(shopName = shopName, shopLocation = shopLocation, shopDetails = shopDetails, dateAdded = dateAdded))
+    val isAdded = CoffeeShopAPI.add(CoffeeShop(shopName = shopName, shopLocation = shopLocation, shopDetails = shopDetails, dateAdded = dateAdded, isCoffeeShopClosed = false))
 
     if (isAdded) {
         println("Added Successfully")
@@ -88,7 +88,7 @@ fun updateCoffeeShop() {
             val dateAdded = ScannerInput.readNextLine("Enter the date the shop was added to the system: ")
 
             // pass the index of the coffee shop and the updated details to NoteAPI for updating and check for success.
-            if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded))){
+            if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded, isCoffeeShopClosed = false))){
                 println("Update Successful")
             } else {
                 println("Update Failed")

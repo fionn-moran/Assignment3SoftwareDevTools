@@ -58,7 +58,7 @@ class CoffeeShopAPI {
         } else null
     }
 
-    /*
+
     fun closeCoffeeShop(id: Int): Boolean {
         val foundCoffeeShop = findCoffeeShop(id)
         if (( foundCoffeeShop != null) && (!foundCoffeeShop.isCoffeeShopClosed)
@@ -68,9 +68,6 @@ class CoffeeShopAPI {
         }
         return false
     }
-
-
-     */
 }
 
 
