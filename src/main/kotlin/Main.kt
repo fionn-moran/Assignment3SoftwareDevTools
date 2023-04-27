@@ -43,7 +43,7 @@ fun runMenu() {
         when (val option = mainMenu()) {
             1 -> addCoffeeShop()
             2 -> listCoffeeShops()
-           // 3 -> updateCoffeeShop()
+            3 -> updateCoffeeShop()
             4 -> removeCoffeeShop()
             5 -> addSaleToCoffeeShop()
             6 -> updateSaleDetails()
@@ -73,9 +73,7 @@ fun addCoffeeShop() {
         println("Add Failed")
     }
 }
-fun listCoffeeShops() {
-    logger.info { "listCoffeeShops() function invoked" }
-}
+fun listCoffeeShops() = println(CoffeeShopAPI.listCoffeeShops())
 
 
 fun updateCoffeeShop() {
