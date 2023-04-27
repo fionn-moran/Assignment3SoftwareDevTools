@@ -100,7 +100,18 @@ fun updateCoffeeShop() {
 }
 
 fun removeCoffeeShop() {
-    logger.info { "removeCoffeeShop() function invoked" }
+    listCoffeeShops()
+    if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
+        // only ask the user to choose a shop to remove if there are coffee shops on the system
+        val id = ScannerInput.readNextInt("Enter the id of the shop to remove: ")
+        // pass the index of the coffee shop to CoffeeShopAPI for deleting and check for success.
+        val coffeeShopToDelete = CoffeeShopAPI.removeCoffeeShop(id)
+        if (coffeeShopToDelete != null) {
+            println("Coffee Shop Removed!")
+        } else {
+            println("Coffee Shop Was NOT Removed!")
+        }
+    }
 }
 fun addSaleToCoffeeShop() {
     logger.info { "addSaleToCoffeeShop() function invoked" }

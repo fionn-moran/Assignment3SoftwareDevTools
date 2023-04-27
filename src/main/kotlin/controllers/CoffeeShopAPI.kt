@@ -52,6 +52,11 @@ class CoffeeShopAPI {
         if  (coffeeShops.isEmpty()) "No coffee shops on the system"
         else formatListString(coffeeShops)
 
+    fun removeCoffeeShop(indexToDelete: Int): CoffeeShop? {
+        return if (Utilities.isValidListIndex(indexToDelete, coffeeShops)) {
+            coffeeShops.removeAt(indexToDelete)
+        } else null
+    }
 }
 
 
