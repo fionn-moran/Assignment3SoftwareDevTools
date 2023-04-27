@@ -1,4 +1,5 @@
 import controllers.CoffeeShopAPI
+import models.CoffeeShop
 import mu.KotlinLogging
 import utils.ScannerInput
 
@@ -42,7 +43,7 @@ fun runMenu() {
         when (val option = mainMenu()) {
             1 -> addCoffeeShop()
             2 -> listCoffeeShops()
-            3 -> updateCoffeeShop()
+           // 3 -> updateCoffeeShop()
             4 -> removeCoffeeShop()
             5 -> addSaleToCoffeeShop()
             6 -> updateSaleDetails()
@@ -57,15 +58,51 @@ fun runMenu() {
     } while (true)
 }
 
+// Using user's input data, a note is added to NoteAPI
 fun addCoffeeShop() {
-    logger.info { "addCoffeeShop() function invoked" }
+    //logger.info { "addCoffeeShop() function invoked" }
+    val shopName = ScannerInput.readNextLine("Enter a shop name: ")
+    val shopLocation = ScannerInput.readNextLine("Enter a priority (1-low, 2, 3, 4, 5-high): ")
+    val shopDetails = ScannerInput.readNextLine("Enter a category for the note: ")
+    val dateAdded = ScannerInput.readNextLine("Enter your note: ")
+    val isAdded = CoffeeShopAPI.add(CoffeeShop(shopName = shopName, shopLocation = shopLocation, shopDetails = shopDetails, dateAdded = dateAdded))
+
+    if (isAdded) {
+        println("Added Successfully")
+    } else {
+        println("Add Failed")
+    }
 }
 fun listCoffeeShops() {
     logger.info { "listCoffeeShops() function invoked" }
 }
+
+/*
 fun updateCoffeeShop() {
-    logger.info { "updateCoffeeShop() function invoked" }
+    listCoffeeShops()
+    if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
+        // only ask the user to choose a coffee shop if coffee shops already exist on the system
+        val id = ScannerInput.readNextInt("Enter the id of the shop to update: ")
+        if (CoffeeShopAPI.findCoffeeShop(id) != null) {
+            val shopName = ScannerInput.readNextLine("Enter a shop name: ")
+            val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
+            val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
+            val dateAdded = ScannerInput.readNextLine("Enter the date the shop was added to the system: ")
+
+            // pass the index of the coffee shop and the updated details to NoteAPI for updating and check for success.
+            if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded))){
+                println("Update Successful")
+            } else {
+                println("Update Failed")
+            }
+        } else {
+            println("There are no notes for this index number")
+        }
+    }
 }
+
+
+ */
 fun removeCoffeeShop() {
     logger.info { "removeCoffeeShop() function invoked" }
 }
