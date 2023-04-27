@@ -73,9 +73,7 @@ fun addCoffeeShop() {
         println("Add Failed")
     }
 }
-fun listCoffeeShops() {
-    logger.info { "listCoffeeShops() function invoked" }
-}
+fun listCoffeeShops() = println(CoffeeShopAPI.listCoffeeShops())
 
 
 fun updateCoffeeShop() {

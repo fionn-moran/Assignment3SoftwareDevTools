@@ -45,6 +45,13 @@ class CoffeeShopAPI {
             .joinToString (separator = "\n") { coffeeShop ->
                 coffeeShops.indexOf(coffeeShop).toString() + ": " + coffeeShop.toString()
             }
-        }
+
+
+    // lists all coffee shops
+    fun listCoffeeShops(): String =
+        if  (coffeeShops.isEmpty()) "No coffee shops on the system"
+        else formatListString(coffeeShops)
+
+}
 
 
