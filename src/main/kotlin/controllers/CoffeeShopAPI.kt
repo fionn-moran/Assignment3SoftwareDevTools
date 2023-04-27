@@ -39,4 +39,12 @@ class CoffeeShopAPI {
 
     fun numberOfCoffeeShops() = coffeeShops.size
 
-}
+    // helper function formats list of coffee shops and returns them as string
+    private fun formatListString(coffeeShopsToFormat : List<CoffeeShop>) : String =
+        coffeeShopsToFormat
+            .joinToString (separator = "\n") { coffeeShop ->
+                coffeeShops.indexOf(coffeeShop).toString() + ": " + coffeeShop.toString()
+            }
+        }
+
+
