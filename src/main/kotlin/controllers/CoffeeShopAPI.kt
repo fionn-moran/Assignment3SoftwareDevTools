@@ -57,6 +57,20 @@ class CoffeeShopAPI {
             coffeeShops.removeAt(indexToDelete)
         } else null
     }
+
+    /*
+    fun closeCoffeeShop(id: Int): Boolean {
+        val foundCoffeeShop = findCoffeeShop(id)
+        if (( foundCoffeeShop != null) && (!foundCoffeeShop.isCoffeeShopClosed)
+        ){
+            foundCoffeeShop.isCoffeeShopClosed = true
+            return true
+        }
+        return false
+    }
+
+
+     */
 }
 
 
