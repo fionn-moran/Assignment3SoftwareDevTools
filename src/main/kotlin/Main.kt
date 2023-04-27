@@ -62,9 +62,9 @@ fun runMenu() {
 fun addCoffeeShop() {
     //logger.info { "addCoffeeShop() function invoked" }
     val shopName = ScannerInput.readNextLine("Enter a shop name: ")
-    val shopLocation = ScannerInput.readNextLine("Enter a priority (1-low, 2, 3, 4, 5-high): ")
-    val shopDetails = ScannerInput.readNextLine("Enter a category for the note: ")
-    val dateAdded = ScannerInput.readNextLine("Enter your note: ")
+    val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
+    val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
+    val dateAdded = ScannerInput.readNextLine("Enter the date the shop was added to the system: ")
     val isAdded = CoffeeShopAPI.add(CoffeeShop(shopName = shopName, shopLocation = shopLocation, shopDetails = shopDetails, dateAdded = dateAdded))
 
     if (isAdded) {
