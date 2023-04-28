@@ -10,4 +10,11 @@ data class CoffeeShop(var shopID: Int = 0,
 
 {
 
+    private var lastSaleID = 0
+    private fun getSaleID() = lastSaleID++
+
+    fun addSale(sale: CoffeeShopSales) : Boolean {
+        sale.saleID = getSaleID()
+        return sales.add(sale)
+    }
 }
