@@ -159,7 +159,7 @@ fun closeCoffeeShop() {
     }
 }
 
-/*
+
 private fun addSaleToCoffeeShop() {
     val sale: CoffeeShop? = askUserToChooseCoffeeShop()
     if (sale != null) {
@@ -170,7 +170,7 @@ private fun addSaleToCoffeeShop() {
 }
 
 
- */
+
 fun updateSaleDetails() {
     logger.info { "updateSaleDetails() function invoked" }
 }
@@ -192,5 +192,18 @@ fun listFulfilledSales() {
 }
 fun exitApp() {
     logger.info { "exitApp() function invoked" }
+}
+
+private fun askUserToChooseCoffeeShop(): CoffeeShop? {
+    listCoffeeShops()
+    if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
+        val sale = CoffeeShopAPI.findCoffeeShop(ScannerInput.readNextInt("\nEnter the id of the shop you wish to choose: "))
+        if (sale != null) {
+                return sale //chosen shop exists
+            }
+        } else {
+            println("Coffee Shop does not exist")
+        }
+    return null // Coffee Shop does not exist
 }
 
