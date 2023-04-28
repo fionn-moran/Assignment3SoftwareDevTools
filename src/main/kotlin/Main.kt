@@ -18,6 +18,7 @@ fun mainMenu() = ScannerInput.readNextInt("""
          > |   2) List all coffee shops                        |
          > |   3) Update coffee shop details                   |
          > |   4) Remove a coffee shop                         |
+         > |   20) Close a coffee shop                         |
          > -----------------------------------------------------  
          > | Coffee Shop Sales MENU                            | 
          > |   5) Add a sale to a coffee shop                  |
@@ -52,6 +53,7 @@ fun runMenu() {
             9 -> searchAllCoffeeShops()
             10 -> searchSalesBySold()
             11 -> listFulfilledSales()
+            20 -> closeCoffeeShop()
             0 -> exitApp()
             else -> println("Invalid menu choice: $option")
         }
@@ -110,6 +112,21 @@ fun removeCoffeeShop() {
             println("Coffee Shop Removed!")
         } else {
             println("Coffee Shop Was NOT Removed!")
+        }
+    }
+}
+
+// mark selected note as closed
+fun closeCoffeeShop() {
+    listCoffeeShops()
+    if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
+        //only ask the user to choose the coffee shop to close if there are shops on the system.
+        val indexToClose = ScannerInput.readNextInt("Enter the index of the shop to close: ")
+        //pass the index of the shop to CoffeeShopAPI for closing and check for success.
+        if (CoffeeShopAPI.closeCoffeeShop(indexToClose)) {
+            println("Closure Successful!")
+        } else {
+            println("Closure NOT Successful")
         }
     }
 }
