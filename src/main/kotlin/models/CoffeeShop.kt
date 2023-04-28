@@ -17,4 +17,7 @@ data class CoffeeShop(var shopID: Int = 0,
         sale.saleID = getSaleID()
         return sales.add(sale)
     }
+
+    fun numberOfSales() = sales.size
+
 }
