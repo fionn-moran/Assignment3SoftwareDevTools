@@ -48,14 +48,34 @@ class CoffeeShopAPI {
 
 
     // lists all coffee shops
-    fun listCoffeeShops(): String =
+    fun listAllCoffeeShops(): String =
         if  (coffeeShops.isEmpty()) "No coffee shops on the system"
         else formatListString(coffeeShops)
+
+    fun listClosedCoffeeShops(): String =
+        if  (numberOfClosedCoffeeShops() == 0) "No archived notes stored"
+        else formatListString(coffeeShops.filter { coffeeShop -> coffeeShop.isCoffeeShopClosed})
 
     fun removeCoffeeShop(indexToDelete: Int): CoffeeShop? {
         return if (Utilities.isValidListIndex(indexToDelete, coffeeShops)) {
             coffeeShops.removeAt(indexToDelete)
         } else null
+    }
+
+
+    fun closeCoffeeShop(id: Int): Boolean {
+        val foundCoffeeShop = findCoffeeShop(id)
+        if (( foundCoffeeShop != null) && (!foundCoffeeShop.isCoffeeShopClosed)
+        ){
+            foundCoffeeShop.isCoffeeShopClosed = true
+            return true
+        }
+        return false
+    }
+
+    // Counts the total number of all archived notes
+    fun numberOfClosedCoffeeShops(): Int = coffeeShops.count {
+            coffeeShop: CoffeeShop -> coffeeShop.isCoffeeShopClosed
     }
 }
 
