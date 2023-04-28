@@ -75,8 +75,34 @@ fun addCoffeeShop() {
         println("Add Failed")
     }
 }
-fun listCoffeeShops() = println(CoffeeShopAPI.listCoffeeShops())
+fun listCoffeeShops() {
+    if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
+        val option = ScannerInput.readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) View ALL coffee shops   |
+                  > |   2) View CLOSED coffee shops|
+                  > --------------------------------
+         > ==>> """.trimMargin(">")
+        )
 
+        when (option) {
+            1 -> listAllCoffeeShops();
+            2 -> listClosedCoffeeShops();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No coffee shops stored");
+    }
+}
+
+fun listAllCoffeeShops() {
+    println(CoffeeShopAPI.listAllCoffeeShops())
+}
+
+fun listClosedCoffeeShops() {
+    println(CoffeeShopAPI.listClosedCoffeeShops())
+}
 
 fun updateCoffeeShop() {
     listCoffeeShops()
