@@ -20,4 +20,8 @@ data class CoffeeShop(var shopID: Int = 0,
 
     fun numberOfSales() = sales.size
 
+    fun findSale(id: Int): CoffeeShopSales?{
+        return sales.find{ sale -> sale.saleID == id }
+    }
+
 }
