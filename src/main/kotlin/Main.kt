@@ -1,7 +1,9 @@
 import controllers.CoffeeShopAPI
 import models.CoffeeShop
+import models.CoffeeShopSales
 import mu.KotlinLogging
 import utils.ScannerInput
+import utils.ScannerInput.readNextLine
 
 private val logger = KotlinLogging.logger {}
 
@@ -46,7 +48,7 @@ fun runMenu() {
             2 -> listCoffeeShops()
             3 -> updateCoffeeShop()
             4 -> removeCoffeeShop()
-            5 -> addSaleToCoffeeShop()
+         //   5 -> addSaleToCoffeeShop()
             6 -> updateSaleDetails()
             7 -> deleteSale()
             8 -> fulfillSale()
@@ -156,9 +158,19 @@ fun closeCoffeeShop() {
         }
     }
 }
-fun addSaleToCoffeeShop() {
-    logger.info { "addSaleToCoffeeShop() function invoked" }
+
+
+private fun addSaleToCoffeeShop() {
+    val sale: CoffeeShop? = askUserToChooseCoffeeShop()
+    if (sale != null) {
+        if (sale.addSale(CoffeeShopSales(saleContents = readNextLine("\t Sale Contents: "))))
+            println("Add Successful!")
+        else println("Add NOT Successful")
+    }
 }
+
+
+
 fun updateSaleDetails() {
     logger.info { "updateSaleDetails() function invoked" }
 }
@@ -180,5 +192,18 @@ fun listFulfilledSales() {
 }
 fun exitApp() {
     logger.info { "exitApp() function invoked" }
+}
+
+private fun askUserToChooseCoffeeShop(): CoffeeShop? {
+    listCoffeeShops()
+    if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
+        val sale = CoffeeShopAPI.findCoffeeShop(ScannerInput.readNextInt("\nEnter the id of the shop you wish to choose: "))
+        if (sale != null) {
+                return sale //chosen shop exists
+            }
+        } else {
+            println("Coffee Shop does not exist")
+        }
+    return null // Coffee Shop does not exist
 }
 
