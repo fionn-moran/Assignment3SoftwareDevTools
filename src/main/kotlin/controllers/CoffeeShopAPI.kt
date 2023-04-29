@@ -108,6 +108,23 @@ class CoffeeShopAPI {
             else listOfCoffeeShops
         }
     }
+
+    // ----------------------------------------------
+    //  LISTING METHODS FOR SALES
+    // ----------------------------------------------
+    fun listFulfilledSales(): String =
+        if (numberOfCoffeeShops() == 0) "No shops stored"
+        else {
+            var listOfFulfilledSales = ""
+            for (coffeeShop in coffeeShops) {
+                for (sale in coffeeShop.sales) {
+                    if (!sale.isSaleFulfilled) {
+                        listOfFulfilledSales += coffeeShop.shopName + ": " + sale.saleContents + "\n"
+                    }
+                }
+            }
+            listOfFulfilledSales
+        }
 }
 
 
