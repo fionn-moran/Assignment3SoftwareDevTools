@@ -55,7 +55,7 @@ class CoffeeShopAPI {
             }
     // lists all coffee shops
     fun listAllCoffeeShops(): String =
-        if  (coffeeShops.isEmpty()) "No coffee shops on the system"
+        if  (coffeeShops.isEmpty()) "no coffee shops on the system"
         else formatListString(coffeeShops)
 
     fun listAllSales(): String =
