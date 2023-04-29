@@ -5,6 +5,7 @@ import mu.KotlinLogging
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import utils.Utilities
 
 private val logger = KotlinLogging.logger {}
 
@@ -212,6 +213,10 @@ fun searchAllCoffeeShops() {
 
 fun searchSalesBySold() {
     logger.info { "searchSalesBySold() function invoked" }
+}
+
+fun listAllSales() {
+    println(CoffeeShopAPI.listAllSales())
 }
 fun listFulfilledSales() {
     logger.info { "listFulfilledSales() function invoked" }

@@ -1,11 +1,13 @@
 package controllers
 
 import models.CoffeeShop
+import models.CoffeeShopSales
 import utils.Utilities
 
 class CoffeeShopAPI {
 
     private var coffeeShops = ArrayList<CoffeeShop>()
+    private var sales = ArrayList<CoffeeShopSales>()
 
     // adds a new coffee shop to coffee shop array list
     fun add(coffeeShop: CoffeeShop): Boolean {
@@ -46,11 +48,19 @@ class CoffeeShopAPI {
                 coffeeShops.indexOf(coffeeShop).toString() + ": " + coffeeShop.toString()
             }
 
-
+    private fun formatSalesListString(salesToFormat : List<CoffeeShopSales>) : String =
+        salesToFormat
+            .joinToString (separator = "\n") { sale ->
+                sales.indexOf(sale).toString() + ": " + sale.toString()
+            }
     // lists all coffee shops
     fun listAllCoffeeShops(): String =
         if  (coffeeShops.isEmpty()) "No coffee shops on the system"
         else formatListString(coffeeShops)
+
+    fun listAllSales(): String =
+        if  (sales.isEmpty()) "No coffee shops on the system"
+        else formatSalesListString(sales)
 
     fun listClosedCoffeeShops(): String =
         if  (numberOfClosedCoffeeShops() == 0) "No archived notes stored"
