@@ -29,4 +29,19 @@ data class CoffeeShop(var shopID: Int = 0,
     fun listSales() =
         if (sales.isEmpty())  "\tNO ITEMS ADDED"
         else  Utilities.formatSetString(sales)
+
+    fun updateSale(id: Int, newSale: CoffeeShopSales): Boolean {
+        val foundSale = findSale(id)
+
+        //if the sale exists, use the details passed in the newSale parameter to
+        //update the found sale in the Set
+        if (foundSale != null){
+            foundSale.saleContents = newSale.saleContents
+            foundSale.isSaleFulfilled = newSale.isSaleFulfilled
+            return true
+        }
+
+        //if the sale was not found, return false, indicating that the update was not successful
+        return false
+    }
 }

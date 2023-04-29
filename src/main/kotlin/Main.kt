@@ -3,6 +3,7 @@ import models.CoffeeShop
 import models.CoffeeShopSales
 import mu.KotlinLogging
 import utils.ScannerInput
+import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 
 private val logger = KotlinLogging.logger {}
@@ -48,7 +49,7 @@ fun runMenu() {
             2 -> listCoffeeShops()
             3 -> updateCoffeeShop()
             4 -> removeCoffeeShop()
-         //   5 -> addSaleToCoffeeShop()
+            5 -> addSaleToCoffeeShop()
             6 -> updateSaleDetails()
             7 -> deleteSale()
             8 -> fulfillSale()
@@ -172,8 +173,22 @@ private fun addSaleToCoffeeShop() {
 
 
 fun updateSaleDetails() {
-    logger.info { "updateSaleDetails() function invoked" }
+    val coffeeShop: CoffeeShop? = askUserToChooseCoffeeShop()
+    if (coffeeShop != null) {
+        val sale: CoffeeShopSales? = askUserToChooseSale(coffeeShop)
+        if (sale != null) {
+            val newContents = readNextLine("Enter new sale contents: ")
+            if (coffeeShop.updateSale(sale.saleID, CoffeeShopSales(saleContents = newContents))) {
+                println("Sale contents updated")
+            } else {
+                println("Sale contents NOT updated")
+            }
+        } else {
+            println("Invalid sale Id")
+        }
+    }
 }
+
 fun deleteSale() {
     logger.info { "deleteSale() function invoked" }
 }
@@ -207,3 +222,13 @@ private fun askUserToChooseCoffeeShop(): CoffeeShop? {
     return null // Coffee Shop does not exist
 }
 
+private fun askUserToChooseSale(coffeeShop: CoffeeShop): CoffeeShopSales? {
+    if (coffeeShop.numberOfSales() > 0) {
+        print(coffeeShop.listSales())
+        return coffeeShop.findSale(readNextInt("\nEnter the id of the sale: "))
+    }
+    else{
+        println ("No sales for chosen coffee shop")
+        return null
+    }
+}
