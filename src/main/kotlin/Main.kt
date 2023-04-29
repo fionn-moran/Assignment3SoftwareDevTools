@@ -48,7 +48,7 @@ fun runMenu() {
             2 -> listCoffeeShops()
             3 -> updateCoffeeShop()
             4 -> removeCoffeeShop()
-         //   5 -> addSaleToCoffeeShop()
+            5 -> addSaleToCoffeeShop()
             6 -> updateSaleDetails()
             7 -> deleteSale()
             8 -> fulfillSale()
@@ -172,8 +172,22 @@ private fun addSaleToCoffeeShop() {
 
 
 fun updateSaleDetails() {
-    logger.info { "updateSaleDetails() function invoked" }
+    val coffeeShop: CoffeeShop? = askUserToChooseCoffeeShop()
+    if (coffeeShop != null) {
+        val sale: CoffeeShopSales? = askUserToChooseSale(coffeeShop)
+        if (sale != null) {
+            val newContents = readNextLine("Enter new sale contents: ")
+            if (coffeeShop.updateSale(sale.saleID, CoffeeShopSales(saleContents = newContents))) {
+                println("Sale contents updated")
+            } else {
+                println("Sale contents NOT updated")
+            }
+        } else {
+            println("Invalid sale Id")
+        }
+    }
 }
+
 fun deleteSale() {
     logger.info { "deleteSale() function invoked" }
 }
