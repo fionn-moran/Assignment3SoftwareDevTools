@@ -224,10 +224,16 @@ fun fulfillSale() {
         }
     }
 }
+// search for shops via shop names
 fun searchAllCoffeeShops() {
-    logger.info { "searchAllCoffeeShops() function invoked" }
+    val searchTitle = readNextLine("Enter the shop name to search for: ")
+    val searchResults = CoffeeShopAPI.searchByCoffeeShopName(searchTitle)
+    if (searchResults.isEmpty()) {
+        println("No shops found")
+    } else {
+        println(searchResults)
+    }
 }
-
 fun searchSalesBySold() {
     logger.info { "searchSalesBySold() function invoked" }
 }

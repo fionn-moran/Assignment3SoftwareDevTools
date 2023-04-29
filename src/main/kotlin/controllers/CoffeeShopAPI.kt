@@ -87,6 +87,11 @@ class CoffeeShopAPI {
     fun numberOfClosedCoffeeShops(): Int = coffeeShops.count {
             coffeeShop: CoffeeShop -> coffeeShop.isCoffeeShopClosed
     }
+
+    // searches for input text in shop names
+    fun searchByCoffeeShopName (searchString : String) =
+        formatListString(
+            coffeeShops.filter { coffeeShop -> coffeeShop.shopName.contains(searchString, ignoreCase = true) })
 }
 
 
