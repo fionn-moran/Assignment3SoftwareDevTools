@@ -3,6 +3,7 @@ import models.CoffeeShop
 import models.CoffeeShopSales
 import mu.KotlinLogging
 import utils.ScannerInput
+import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 
 private val logger = KotlinLogging.logger {}
@@ -221,3 +222,13 @@ private fun askUserToChooseCoffeeShop(): CoffeeShop? {
     return null // Coffee Shop does not exist
 }
 
+private fun askUserToChooseSale(coffeeShop: CoffeeShop): CoffeeShopSales? {
+    if (coffeeShop.numberOfSales() > 0) {
+        print(coffeeShop.listSales())
+        return coffeeShop.findSale(readNextInt("\nEnter the id of the sale: "))
+    }
+    else{
+        println ("No sales for chosen coffee shop")
+        return null
+    }
+}
