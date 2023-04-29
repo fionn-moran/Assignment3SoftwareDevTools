@@ -2,9 +2,12 @@ package controllers
 
 import models.CoffeeShop
 import models.CoffeeShopSales
+import persistence.Serializer
 import utils.Utilities
 
-class CoffeeShopAPI {
+class CoffeeShopAPI(serializerType: Serializer){
+
+    private var serializer: Serializer = serializerType
 
     private var coffeeShops = ArrayList<CoffeeShop>()
     private var sales = ArrayList<CoffeeShopSales>()
@@ -139,6 +142,16 @@ class CoffeeShopAPI {
             }
         }
         return numberOfFulfilledSales
+    }
+
+    @Throws(Exception::class)
+    fun load() {
+        coffeeShops = serializer.read() as ArrayList<CoffeeShop>
+    }
+
+    @Throws(Exception::class)
+    fun store() {
+        serializer.write(coffeeShops)
     }
 }
 
