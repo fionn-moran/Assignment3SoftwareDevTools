@@ -190,7 +190,18 @@ fun updateSaleDetails() {
 }
 
 fun deleteSale() {
-    logger.info { "deleteSale() function invoked" }
+    val coffeeShop: CoffeeShop? = askUserToChooseCoffeeShop()
+    if (coffeeShop != null) {
+        val sale: CoffeeShopSales? = askUserToChooseSale(coffeeShop)
+        if (sale != null) {
+            val isDeleted = coffeeShop.deleteSale(sale.saleID)
+            if (isDeleted) {
+                println("Delete Successful!")
+            } else {
+                println("Delete NOT Successful")
+            }
+        }
+    }
 }
 fun fulfillSale() {
     logger.info { "fulfillSale() function invoked" }

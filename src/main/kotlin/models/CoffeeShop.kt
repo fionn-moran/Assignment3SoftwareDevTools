@@ -44,4 +44,9 @@ data class CoffeeShop(var shopID: Int = 0,
         //if the sale was not found, return false, indicating that the update was not successful
         return false
     }
+
+    fun deleteSale(id: Int): Boolean {
+        return sales.removeIf { sale -> sale.saleID == id}
+    }
+
 }
