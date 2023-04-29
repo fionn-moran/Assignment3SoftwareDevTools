@@ -2,6 +2,7 @@ package controllers
 
 import models.CoffeeShop
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -108,6 +109,27 @@ class CoffeeShopAPITest {
             assertEquals("Open 24/7", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopDetails)
             assertEquals("1/11/2010", populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
             assertEquals(false, populatedCoffeeShops!!.findCoffeeShop(2)!!.isCoffeeShopClosed)
+        }
+    }
+
+
+    @Nested
+    inner class DeleteCoffeeShops {
+
+        @Test
+        fun `deleting a Coffee Shop that does not exist, returns null`() {
+            assertNull(emptyCoffeeShops!!.removeCoffeeShop(100))
+            assertNull(populatedCoffeeShops!!.removeCoffeeShop(-1))
+            assertNull(populatedCoffeeShops!!.removeCoffeeShop(5))
+        }
+
+        @Test
+        fun `deleting a shop that exists delete and returns deleted object`() {
+            assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
+            assertEquals(costa, populatedCoffeeShops!!.removeCoffeeShop(0))
+            assertEquals(2, populatedCoffeeShops!!.numberOfCoffeeShops())
+            assertEquals(starbucks, populatedCoffeeShops!!.removeCoffeeShop(0))
+            assertEquals(1, populatedCoffeeShops!!.numberOfCoffeeShops())
         }
     }
 }
