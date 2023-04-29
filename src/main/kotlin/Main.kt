@@ -57,7 +57,7 @@ fun runMenu() {
             8 -> fulfillSale()
             9 -> searchAllCoffeeShops()
             10 -> searchSales()
-            11 -> listFulfilledSales()
+           // 11 -> listFulfilledSales()
             20 -> closeCoffeeShop()
             0 -> exitApp()
             else -> println("Invalid menu choice: $option")
@@ -250,9 +250,16 @@ fun searchSales() {
 fun listAllSales() {
     println(CoffeeShopAPI.listAllSales())
 }
-fun listFulfilledSales() {
-    logger.info { "listFulfilledSales() function invoked" }
+
+/*
+fun listFulfilledSales(){
+    if (CoffeeShopAPI.numberOfFulfilledSales() > 0) {
+        println("Total fulfilled sales: ${CoffeeShopAPI.numberOfFulfilledSales()}")
+    }
+    println(CoffeeShopAPI.listFulfilledSales())
 }
+
+ */
 fun exitApp() {
     logger.info { "exitApp() function invoked" }
 }
