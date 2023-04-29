@@ -125,6 +125,21 @@ class CoffeeShopAPI {
             }
             listOfFulfilledSales
         }
+
+    // ----------------------------------------------
+    //  COUNTING METHODS FOR SALES
+    // ----------------------------------------------
+    fun numberOfFulfilledSales(): Int {
+        var numberOfFulfilledSales = 0
+        for (coffeeShop in coffeeShops) {
+            for (sale in coffeeShop.sales) {
+                if (!sale.isSaleFulfilled) {
+                    numberOfFulfilledSales++
+                }
+            }
+        }
+        return numberOfFulfilledSales
+    }
 }
 
 
