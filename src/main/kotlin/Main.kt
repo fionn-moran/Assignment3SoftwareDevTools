@@ -56,7 +56,7 @@ fun runMenu() {
             7 -> deleteSale()
             8 -> fulfillSale()
             9 -> searchAllCoffeeShops()
-            10 -> searchSales()
+            //10 -> searchSales()
             11 -> listFulfilledSales()
             20 -> closeCoffeeShop()
             0 -> exitApp()
