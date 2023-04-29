@@ -92,6 +92,22 @@ class CoffeeShopAPI {
     fun searchByCoffeeShopName (searchString : String) =
         formatListString(
             coffeeShops.filter { coffeeShop -> coffeeShop.shopName.contains(searchString, ignoreCase = true) })
+
+    fun searchSaleByContents(searchString: String): String {
+        return if (numberOfCoffeeShops() == 0) "No coffee shops stored"
+        else {
+            var listOfCoffeeShops = ""
+            for (coffeeShop in coffeeShops) {
+                for (sale in coffeeShop.sales) {
+                    if (sale.saleContents.contains(searchString, ignoreCase = true)) {
+                        listOfCoffeeShops += "${coffeeShop.shopID}: ${coffeeShop.shopName} \n\t${sale}\n"
+                    }
+                }
+            }
+            if (listOfCoffeeShops == "") "No items found for: $searchString"
+            else listOfCoffeeShops
+        }
+    }
 }
 
 

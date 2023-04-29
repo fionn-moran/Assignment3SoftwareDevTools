@@ -56,7 +56,7 @@ fun runMenu() {
             7 -> deleteSale()
             8 -> fulfillSale()
             9 -> searchAllCoffeeShops()
-            10 -> searchSalesBySold()
+            10 -> searchSales()
             11 -> listFulfilledSales()
             20 -> closeCoffeeShop()
             0 -> exitApp()
@@ -234,9 +234,18 @@ fun searchAllCoffeeShops() {
         println(searchResults)
     }
 }
-fun searchSalesBySold() {
-    logger.info { "searchSalesBySold() function invoked" }
+
+
+fun searchSales() {
+    val searchContents = readNextLine("Enter the sale contents to search for: ")
+    val searchResults = CoffeeShopAPI.searchSaleByContents(searchContents)
+    if (searchResults.isEmpty()) {
+        println("No sales found")
+    } else {
+        println(searchResults)
+    }
 }
+
 
 fun listAllSales() {
     println(CoffeeShopAPI.listAllSales())
