@@ -56,7 +56,7 @@ fun runMenu() {
             7 -> deleteSale()
             8 -> fulfillSale()
             9 -> searchAllCoffeeShops()
-            //10 -> searchSales()
+            10 -> searchSales()
             11 -> listFulfilledSales()
             20 -> closeCoffeeShop()
             0 -> exitApp()
@@ -235,7 +235,7 @@ fun searchAllCoffeeShops() {
     }
 }
 
-/*
+
 fun searchSales() {
     val searchContents = readNextLine("Enter the sale contents to search for: ")
     val searchResults = CoffeeShopAPI.searchSaleByContents(searchContents)
@@ -246,7 +246,7 @@ fun searchSales() {
     }
 }
 
- */
+
 fun listAllSales() {
     println(CoffeeShopAPI.listAllSales())
 }
