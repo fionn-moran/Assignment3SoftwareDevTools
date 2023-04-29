@@ -3,6 +3,7 @@ import models.CoffeeShop
 import models.CoffeeShopSales
 import mu.KotlinLogging
 import utils.ScannerInput
+import utils.ScannerInput.readNextChar
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import utils.Utilities
@@ -205,7 +206,23 @@ fun deleteSale() {
     }
 }
 fun fulfillSale() {
-    logger.info { "fulfillSale() function invoked" }
+    val coffeeShop: CoffeeShop? = askUserToChooseCoffeeShop()
+    if (coffeeShop != null) {
+        val sale: CoffeeShopSales? = askUserToChooseSale(coffeeShop)
+        if (sale != null) {
+            var changeStatus = 'X'
+            if (sale.isSaleFulfilled) {
+                changeStatus = readNextChar("The sale is fulfilled...do you want to mark it as unfulfilled?")
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                    sale.isSaleFulfilled = false
+            }
+            else {
+                changeStatus = readNextChar("The sale is unfulfilled...do you want to mark it as fulfilled?")
+                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                    sale.isSaleFulfilled = true
+            }
+        }
+    }
 }
 fun searchAllCoffeeShops() {
     logger.info { "searchAllCoffeeShops() function invoked" }
