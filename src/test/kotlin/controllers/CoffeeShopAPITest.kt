@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
-class NoteAPITest {
+class CoffeeShopAPITest {
 
     private var costa: CoffeeShop? = null
     private var starbucks: CoffeeShop? = null
