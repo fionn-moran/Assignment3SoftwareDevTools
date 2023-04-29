@@ -224,9 +224,7 @@ fun fulfillSale() {
         }
     }
 }
-// search for notes via titles
-
-/*
+// search for shops via shop names
 fun searchAllCoffeeShops() {
     val searchTitle = readNextLine("Enter the shop name to search for: ")
     val searchResults = CoffeeShopAPI.searchByCoffeeShopName(searchTitle)
@@ -236,9 +234,6 @@ fun searchAllCoffeeShops() {
         println(searchResults)
     }
 }
-
-
- */
 fun searchSalesBySold() {
     logger.info { "searchSalesBySold() function invoked" }
 }
