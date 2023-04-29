@@ -36,15 +36,23 @@ class CoffeeShopAPITest {
         emptyCoffeeShops = null
     }
 
+
+    // Add to coffee shop tests
     @Test
     fun `adding a Coffee Shop to a populated list adds to ArrayList`(){
         val newCoffeeShop = CoffeeShop(1, "Coffee Shop 1", "College", "Open", "1/1/2000", false)
+        assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
         assertTrue(populatedCoffeeShops!!.add(newCoffeeShop))
+        assertEquals(4, populatedCoffeeShops!!.numberOfCoffeeShops())
+        assertEquals(newCoffeeShop, populatedCoffeeShops!!.findCoffeeShop(populatedCoffeeShops!!.numberOfCoffeeShops() - 1))
     }
 
     @Test
     fun `adding a Coffee Shop to an empty list adds to ArrayList`(){
         val newCoffeeShop = CoffeeShop(2, "Coffee Shop 2", "Cork", "Open", "7/3/2019", false)
+        assertEquals(0, emptyCoffeeShops!!.numberOfCoffeeShops())
         assertTrue(emptyCoffeeShops!!.add(newCoffeeShop))
+        assertEquals(1, emptyCoffeeShops!!.numberOfCoffeeShops())
+        assertEquals(newCoffeeShop, emptyCoffeeShops!!.findCoffeeShop(emptyCoffeeShops!!.numberOfCoffeeShops() - 1))
     }
 }
