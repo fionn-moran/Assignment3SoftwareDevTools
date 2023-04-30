@@ -308,8 +308,6 @@ fun searchForPrice() {
         println(searchResults)
     }
 }
-
-
 fun listAllSales() {
     println(CoffeeShopAPI.listAllSales())
 }
