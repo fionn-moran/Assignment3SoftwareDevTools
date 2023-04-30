@@ -19,8 +19,8 @@ class CoffeeShopAPITest {
     private var costa: CoffeeShop? = null
     private var starbucks: CoffeeShop? = null
     private var mcdonalds: CoffeeShop? = null
-    private var populatedCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("notes.xml")))
-    private var emptyCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("notes.xml")))
+    private var populatedCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
+    private var emptyCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
 
     private var americano: CoffeeShopSales? = null
     private var latte: CoffeeShopSales? = null
@@ -112,8 +112,6 @@ class CoffeeShopAPITest {
             assertFalse(closedCoffeeShopsString.contains("starbucks"))
             assertFalse(closedCoffeeShopsString.contains("mcdonalds"))
         }
-
-
     }
 
     @Nested
@@ -174,11 +172,11 @@ class CoffeeShopAPITest {
             val storingCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             storingCoffeeShops.store()
 
-            // Loading the empty notes.xml file into a new object
+            // Loading the empty coffeeShops.xml file into a new object
             val loadedCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             loadedCoffeeShops.load()
 
-            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the coffeeShops (storingCoffeeShops) with the XML loaded coffeeShops (loadedCoffeeShops)
             assertEquals(0, storingCoffeeShops.numberOfCoffeeShops())
             assertEquals(0, loadedCoffeeShops.numberOfCoffeeShops())
             assertEquals(storingCoffeeShops.numberOfCoffeeShops(), loadedCoffeeShops.numberOfCoffeeShops())
@@ -186,7 +184,7 @@ class CoffeeShopAPITest {
 
         @Test
         fun `saving and loading an loaded collection in XML doesn't lose data`() {
-            // Storing 3 shops to the notes.XML file.
+            // Storing 3 shops to the coffeeShops.XML file.
             val storingCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             storingCoffeeShops.add(costa!!)
             storingCoffeeShops.add(starbucks!!)
@@ -197,7 +195,7 @@ class CoffeeShopAPITest {
             val loadedCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             loadedCoffeeShops.load()
 
-            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the coffeeShops (storingCoffeeShops) with the XML loaded coffeeShops (loadedCoffeeShops)
             assertEquals(3, storingCoffeeShops.numberOfCoffeeShops())
             assertEquals(3, loadedCoffeeShops.numberOfCoffeeShops())
             assertEquals(storingCoffeeShops.numberOfCoffeeShops(), loadedCoffeeShops.numberOfCoffeeShops())
@@ -211,13 +209,13 @@ class CoffeeShopAPITest {
     inner class SearchMethods {
 
         @Test
-        fun `search coffee shops by name returns no notes when no shops with that name exist`() {
-            //Searching a populated collection for a name that doesn't exist.
+        fun `search coffee shops by name returns no shops when no shops with that name exist`() {
+            // Searching a populated collection for a name that doesn't exist.
             assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
             val searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("no results expected")
             assertTrue(searchResults.isEmpty())
 
-            //Searching an empty collection
+            // Searching an empty collection
             assertEquals(0, emptyCoffeeShops!!.numberOfCoffeeShops())
             assertTrue(emptyCoffeeShops!!.searchByCoffeeShopName("").isEmpty())
         }
@@ -226,18 +224,18 @@ class CoffeeShopAPITest {
         fun `search coffee shop by name returns shops when shops with that name exist`() {
             assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
 
-            //Searching a populated collection for a full title that exists (case matches exactly)
+            // Searching a populated collection for a full title that exists (case matches exactly)
             var searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("Costa")
             assertTrue(searchResults.contains("Costa"))
             assertFalse(searchResults.contains("Test App"))
 
-            //Searching a populated collection for a partial title that exists (case matches exactly)
+            // Searching a populated collection for a partial title that exists (case matches exactly)
             searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("Cos")
             assertTrue(searchResults.contains("Costa"))
             assertTrue(searchResults.contains("Costa"))
             assertFalse(searchResults.contains("Swim"))
 
-            //Searching a populated collection for a partial title that exists (case doesn't match)
+            // Searching a populated collection for a partial title that exists (case doesn't match)
             searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("osT")
             assertTrue(searchResults.contains("Costa"))
             assertTrue(searchResults.contains("Costa"))

@@ -24,7 +24,7 @@ class CoffeeShopAPI(serializerType: Serializer) {
         } else null
     }
 
-    // updates a previously added note with additional/changed details
+    // updates a previously added coffee shop with additional/changed details
     fun updateCoffeeShop(indexToUpdate: Int, coffeeShop: CoffeeShop?): Boolean {
         // find the coffee shop by the index number
         val foundCoffeeShop = findCoffeeShop(indexToUpdate)
@@ -56,13 +56,14 @@ class CoffeeShopAPI(serializerType: Serializer) {
             .joinToString(separator = "\n") { sale ->
                 sales.indexOf(sale).toString() + ": " + sale.toString()
             }
+
     // lists all coffee shops
     fun listAllCoffeeShops(): String =
         if (coffeeShops.isEmpty()) "no coffee shops on the system"
         else formatListString(coffeeShops)
 
     fun listAllSales(): String =
-        if (sales.isEmpty()) "No coffee shops on the system"
+        if (sales.isEmpty()) "No sales on the system"
         else formatSalesListString(sales)
 
     fun listClosedCoffeeShops(): String =
@@ -85,9 +86,8 @@ class CoffeeShopAPI(serializerType: Serializer) {
         return false
     }
 
-    // Counts the total number of all archived notes
-    fun numberOfClosedCoffeeShops(): Int = coffeeShops.count {
-        coffeeShop: CoffeeShop ->
+    // Counts the total number of all closed coffee shops
+    fun numberOfClosedCoffeeShops(): Int = coffeeShops.count { coffeeShop: CoffeeShop ->
         coffeeShop.isCoffeeShopClosed
     }
 
@@ -125,6 +125,38 @@ class CoffeeShopAPI(serializerType: Serializer) {
                 }
             }
             if (listOfCoffeeShops == "") "No items found for: $searchPrice"
+            else listOfCoffeeShops
+        }
+    }
+
+    fun searchSaleByMinPrice(minPrice: Double): String {
+        return if (numberOfCoffeeShops() == 0) "No coffee shops stored"
+        else {
+            var listOfCoffeeShops = ""
+            for (coffeeShop in coffeeShops) {
+                for (sale in coffeeShop.sales) {
+                    if (sale.salePrice >= minPrice) {
+                        listOfCoffeeShops += "${coffeeShop.shopID}: ${coffeeShop.shopName} \n\t${sale}\n"
+                    }
+                }
+            }
+            if (listOfCoffeeShops == "") "No items found for: $minPrice"
+            else listOfCoffeeShops
+        }
+    }
+
+    fun searchSaleByMaxPrice(maxPrice: Double): String {
+        return if (numberOfCoffeeShops() == 0) "No coffee shops stored"
+        else {
+            var listOfCoffeeShops = ""
+            for (coffeeShop in coffeeShops) {
+                for (sale in coffeeShop.sales) {
+                    if (sale.salePrice <= maxPrice) {
+                        listOfCoffeeShops += "${coffeeShop.shopID}: ${coffeeShop.shopName} \n\t${sale}\n"
+                    }
+                }
+            }
+            if (listOfCoffeeShops == "") "No items found for: $maxPrice"
             else listOfCoffeeShops
         }
     }
@@ -170,4 +202,6 @@ class CoffeeShopAPI(serializerType: Serializer) {
     fun store() {
         serializer.write(coffeeShops)
     }
+
+    fun numberOfSales() = sales.size
 }

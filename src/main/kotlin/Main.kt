@@ -34,12 +34,14 @@ fun mainMenu() = readNextInt(
          > | REPORT MENU FOR Coffee Shop Sales                 |                                
          > |   5) Search for sales (by sold item)              |
          > |   6) Search sales by price                        |
-         > |   7) List fulfilled sales                         |
+         > |   7) Search sales by min price                    |
+         > |   8) Search sales by max price                    |
+         > |   9) List fulfilled sales                         |
          > -----------------------------------------------------  
          > -----------------------------------------------------  
          > | Counting options MENU                             |
-         > |   8) Count total Coffee Shops                     |
-         > |   9) Count total closed coffee shops              |
+         > |  10) Count total Coffee Shops                     |
+         > |  11) Count total closed coffee shops              |
          > -----------------------------------------------------  
          > -----------------------------------------------------  
          > |   0) Exit                                         |
@@ -58,9 +60,11 @@ fun runMenu() {
             4 -> listClosedCoffeeShops()
             5 -> searchSales()
             6 -> searchForPrice()
-            7 -> listFulfilledSales()
-            8 -> countAllCoffeeShops()
-            9 -> countAllClosedCoffeeShops()
+            7 -> searchByMinPrice()
+            8 -> searchByMaxPrice()
+            9 -> listFulfilledSales()
+            10 -> countAllCoffeeShops()
+            11 -> countAllClosedCoffeeShops()
             0 -> exitApp()
             98 -> saveCoffeeShops()
             99 -> loadCoffeeShops()
@@ -69,6 +73,7 @@ fun runMenu() {
     } while (true)
 }
 
+// lists submenu with options to manage coffee shops
 fun listCoffeeShopCrud() {
     val option = readNextInt(
         """
@@ -94,6 +99,7 @@ fun listCoffeeShopCrud() {
     }
 }
 
+// lists submenu with options to manage coffee shop sales
 fun listCoffeeShopSalesCrud() {
     val option = readNextInt(
         """
@@ -118,7 +124,7 @@ fun listCoffeeShopSalesCrud() {
         else -> println("Invalid option entered: $option")
     }
 }
-// Using user's input data, a note is added to NoteAPI
+// Using user's input data, a coffee shop is added to CoffeeShopAPI
 fun addCoffeeShop() {
     // logger.info { "addCoffeeShop() function invoked" }
     val shopName = readNextLine("Enter a shop name: ")
@@ -133,6 +139,8 @@ fun addCoffeeShop() {
         println("Add Failed")
     }
 }
+
+// displays a submenu to choose between all/closed coffee shops
 fun listCoffeeShops() {
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
         val option = readNextInt(
@@ -162,6 +170,7 @@ fun listClosedCoffeeShops() {
     println(CoffeeShopAPI.listClosedCoffeeShops())
 }
 
+// allows user to update details of specific coffee shop
 fun updateCoffeeShop() {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
@@ -173,14 +182,14 @@ fun updateCoffeeShop() {
             val shopDetails = readNextLine("Enter the shop details: ")
             val dateAdded = LocalDate.now()
 
-            // pass the index of the coffee shop and the updated details to NoteAPI for updating and check for success.
+            // pass the index of the coffee shop and the updated details to CoffeeShopAPI for updating and check for success.
             if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded, isCoffeeShopClosed = false))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
             }
         } else {
-            println("There are no notes for this index number")
+            println("There are no shops for this index number")
         }
     }
 }
@@ -200,7 +209,7 @@ fun removeCoffeeShop() {
     }
 }
 
-// mark selected note as closed
+// mark selected coffee shop as closed
 fun closeCoffeeShop() {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
@@ -304,6 +313,26 @@ fun searchForPrice() {
     val searchResults = CoffeeShopAPI.searchSaleByPrice(searchPrice)
     if (searchResults.isEmpty()) {
         println("No sales found from that price")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchByMinPrice() {
+    val minSearchPrice = readNextDouble("Enter the minimum sale price to search for: ")
+    val searchResults = CoffeeShopAPI.searchSaleByMinPrice(minSearchPrice)
+    if (searchResults.isEmpty()) {
+        println("No sales found above that price")
+    } else {
+        println(searchResults)
+    }
+}
+
+fun searchByMaxPrice() {
+    val maxSearchPrice = readNextDouble("Enter the maximum sale price to search for: ")
+    val searchResults = CoffeeShopAPI.searchSaleByMaxPrice(maxSearchPrice)
+    if (searchResults.isEmpty()) {
+        println("No sales found above that price")
     } else {
         println(searchResults)
     }
