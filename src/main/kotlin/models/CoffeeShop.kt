@@ -1,12 +1,13 @@
 package models
 
 import utils.Utilities
+import java.time.LocalDate
 
 data class CoffeeShop(var shopID: Int = 0,
                       var shopName: String,
                       var shopLocation: String,
                       var shopDetails: String,
-                      var dateAdded: String,
+                      var dateAdded: LocalDate,
                       var isCoffeeShopClosed: Boolean,
                       var sales : MutableSet<CoffeeShopSales> = mutableSetOf())
 

@@ -9,6 +9,7 @@ import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import utils.Utilities
 import java.io.File
+import java.time.LocalDate
 
 private val logger = KotlinLogging.logger {}
 
@@ -77,7 +78,7 @@ fun addCoffeeShop() {
     val shopName = ScannerInput.readNextLine("Enter a shop name: ")
     val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
     val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
-    val dateAdded = ScannerInput.readNextLine("Enter the date the shop was added to the system: ")
+    val dateAdded = LocalDate.now()
     val isAdded = CoffeeShopAPI.add(CoffeeShop(shopName = shopName, shopLocation = shopLocation, shopDetails = shopDetails, dateAdded = dateAdded, isCoffeeShopClosed = false))
 
     if (isAdded) {
@@ -124,7 +125,7 @@ fun updateCoffeeShop() {
             val shopName = ScannerInput.readNextLine("Enter a shop name: ")
             val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
             val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
-            val dateAdded = ScannerInput.readNextLine("Enter the date the shop was added to the system: ")
+            val dateAdded = LocalDate.now()
 
             // pass the index of the coffee shop and the updated details to NoteAPI for updating and check for success.
             if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded, isCoffeeShopClosed = false))){

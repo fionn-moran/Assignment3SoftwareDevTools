@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import persistence.XMLSerializer
 import java.io.File
+import java.time.LocalDate
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
@@ -22,9 +23,9 @@ class CoffeeShopAPITest {
 
     @BeforeEach
     fun setup() {
-        costa = CoffeeShop(1, "Costa", "Waterford", "Open", "1/1/2020", true)
-        starbucks = CoffeeShop(2, "Starbucks", "Dublin", "Open", "10/2/2023", false)
-        mcdonalds = CoffeeShop(3, "Mcdonalds", "Kilkenny", "Open", "8/9/2015", false)
+        costa = CoffeeShop(1, "Costa", "Waterford", "Open", LocalDate.of(2002, 1, 1), true)
+        starbucks = CoffeeShop(2, "Starbucks", "Dublin", "Open", LocalDate.of(2023, 2, 10), false)
+        mcdonalds = CoffeeShop(3, "Mcdonalds", "Kilkenny", "Open", LocalDate.of(2020, 5, 5), false)
 
         //adding 3 Shops to the CoffeeShops api
         populatedCoffeeShops!!.add(costa!!)
@@ -46,7 +47,7 @@ class CoffeeShopAPITest {
         // Add to coffee shop tests
         @Test
         fun `adding a Coffee Shop to a populated list adds to ArrayList`() {
-            val newCoffeeShop = CoffeeShop(1, "Coffee Shop 1", "College", "Open", "1/1/2000", false)
+            val newCoffeeShop = CoffeeShop(1, "Coffee Shop 1", "College", "Open", LocalDate.of(2009,4,9), false)
             assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
             assertTrue(populatedCoffeeShops!!.add(newCoffeeShop))
             assertEquals(4, populatedCoffeeShops!!.numberOfCoffeeShops())
@@ -58,7 +59,7 @@ class CoffeeShopAPITest {
 
         @Test
         fun `adding a Coffee Shop to an empty list adds to ArrayList`() {
-            val newCoffeeShop = CoffeeShop(2, "Coffee Shop 2", "Cork", "Open", "7/3/2019", false)
+            val newCoffeeShop = CoffeeShop(2, "Coffee Shop 2", "Cork", "Open", LocalDate.of(2010,7,8), false)
             assertEquals(0, emptyCoffeeShops!!.numberOfCoffeeShops())
             assertTrue(emptyCoffeeShops!!.add(newCoffeeShop))
             assertEquals(1, emptyCoffeeShops!!.numberOfCoffeeShops())
@@ -89,9 +90,9 @@ class CoffeeShopAPITest {
     inner class UpdateCoffeeShops {
         @Test
         fun `updating a shop that does not exist returns false`() {
-            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(6, CoffeeShop(9, "Coffee 4", "Limerick", "Coffee Shop 12", "1/1/2002", false)))
-            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(-1, CoffeeShop(20, "Coffee 5", "Limerick", "Coffee Shop 212", "12/1/2012", false)))
-            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(99, CoffeeShop(40, "Coffee 6", "Limerick", "Coffee Shop 675", "7/6/2019", false)))
+            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(6, CoffeeShop(9, "Coffee 4", "Limerick", "Coffee Shop 12", LocalDate.of(2012,2,19), false)))
+            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(-1, CoffeeShop(20, "Coffee 5", "Limerick", "Coffee Shop 212", LocalDate.of(2017,4,13), false)))
+            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(99, CoffeeShop(40, "Coffee 6", "Limerick", "Coffee Shop 675", LocalDate.of(2016,3,25), false)))
         }
 
         @Test
@@ -101,15 +102,15 @@ class CoffeeShopAPITest {
             assertEquals("Mcdonalds", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopName)
             assertEquals("Kilkenny", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopLocation)
             assertEquals("Open", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopDetails)
-            assertEquals("8/9/2015", populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
+            assertEquals(LocalDate.of(2020,5,5), populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
             assertEquals(false, populatedCoffeeShops!!.findCoffeeShop(2)!!.isCoffeeShopClosed)
 
             //update shop 3 with new information and ensure contents updated successfully
-            assertTrue(populatedCoffeeShops!!.updateCoffeeShop(2, CoffeeShop(2, "Coffee Shop 99", "Main Street", "Open 24/7", "1/11/2010", false)))
+            assertTrue(populatedCoffeeShops!!.updateCoffeeShop(2, CoffeeShop(2, "Coffee Shop 99", "Main Street", "Open 24/7", LocalDate.of(2022,1,1), false)))
             assertEquals("Coffee Shop 99", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopName)
             assertEquals("Main Street", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopLocation)
             assertEquals("Open 24/7", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopDetails)
-            assertEquals("1/11/2010", populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
+            assertEquals(LocalDate.of(2022,1,1), populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
             assertEquals(false, populatedCoffeeShops!!.findCoffeeShop(2)!!.isCoffeeShopClosed)
         }
     }
