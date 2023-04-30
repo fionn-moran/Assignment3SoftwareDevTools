@@ -30,7 +30,7 @@ This app has two models - CoffeeShop, and CoffeeShopSales. These models are link
 - ScannerInput utility is included for robust user I/0.
 
 ### Persistence:
-- Functionality to read/write to both JSON and XML. 
+- Functionality to read/write to XML. 
 
 ### Gradle plugins:
 - Dokka
