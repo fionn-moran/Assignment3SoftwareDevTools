@@ -36,6 +36,7 @@ This app has two models - CoffeeShop, and CoffeeShopSales. These models are link
 - Dokka
 - Linting
 - jar
+- Jacoco
 
 ### jUnit testing:
 - Testing for CRUD functionality of CoffeeShops.
