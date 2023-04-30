@@ -21,25 +21,19 @@ fun mainMenu() = ScannerInput.readNextInt("""
          > -----------------------------------------------------  
          > |          Coffee Shop Management APP               |
          > -----------------------------------------------------  
-         > | Coffee Shop MENU                                  |
-         > |   1) Add a coffee shop                            |
-         > |   2) List all coffee shops                        |
-         > |   3) Update coffee shop details                   |
-         > |   4) Remove a coffee shop                         |
-         > |   20) Close a coffee shop                         |
+         > | Coffee Shop and Sales CRUD                        |
+         > |   1) Coffee Shop                                  |
+         > |   2) Coffee Shop Sales                            |
          > -----------------------------------------------------  
-         > | Coffee Shop Sales MENU                            | 
-         > |   5) Add a sale to a coffee shop                  |
-         > |   6) Update sale details                          |
-         > |   7) Delete a sale                                |
-         > |   8) Mark a sale as fulfilled                     | 
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shops                      | 
          > |   9) Search for all coffee shops (shop name)      |
+         > ----------------------------------------------------- 
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shop Sales                 |                                
          > |   10) Search for sales (by sold item)             |
          > |   11) List fulfilled sales                        |
+         > -----------------------------------------------------  
          > -----------------------------------------------------  
          > |   0) Exit                                         |
          > |  98) Save                                         |
@@ -52,8 +46,8 @@ fun mainMenu() = ScannerInput.readNextInt("""
 fun runMenu() {
     do {
         when (val option = mainMenu()) {
-            1 -> addCoffeeShop()
-            2 -> listCoffeeShops()
+            1 -> listCoffeeShopCrud()
+            2 -> listCoffeeShopSalesCrud()
             3 -> updateCoffeeShop()
             4 -> removeCoffeeShop()
             5 -> addSaleToCoffeeShop()
@@ -72,6 +66,54 @@ fun runMenu() {
     } while (true)
 }
 
+fun listCoffeeShopCrud() {
+        val option = ScannerInput.readNextInt("""
+                   -----------------------------------
+                 > |   1) Add a coffee shop          |
+                 > |   2) List all coffee shops      |
+                 > |   3) Update coffee shop details |
+                 > |   4) Remove a coffee shop       |
+                 > |   5) Close a coffee shop        |
+                 > |   0) Home                       |
+                 > -----------------------------------
+         > ==>> """.trimMargin(">")
+        )
+
+        when (option) {
+            1 -> addCoffeeShop()
+            2 -> listCoffeeShops()
+            3 -> updateCoffeeShop()
+            4 -> removeCoffeeShop()
+            5 -> closeCoffeeShop()
+            0 -> mainMenu()
+            else -> println("Invalid option entered: " + option);
+        }
+    }
+
+
+fun listCoffeeShopSalesCrud() {
+    val option = ScannerInput.readNextInt("""
+                   -----------------------------------
+                 > |   1) Add a sale to coffee shop  |
+                 > |   2) List all sales             |
+                 > |   3) Update sale                |
+                 > |   4) Remove a sale              |
+                 > |   5) Mark sale as fulfilled     |
+                 > |   0) Home                       |
+                 > -----------------------------------
+         > ==>> """.trimMargin(">")
+    )
+
+    when (option) {
+        1 -> addSaleToCoffeeShop()
+      //  2 -> listCoffeeShopSales()
+        3 -> updateSaleDetails()
+        4 -> deleteSale()
+        5 -> fulfillSale()
+        0 -> mainMenu()
+        else -> println("Invalid option entered: " + option);
+    }
+}
 // Using user's input data, a note is added to NoteAPI
 fun addCoffeeShop() {
     //logger.info { "addCoffeeShop() function invoked" }
