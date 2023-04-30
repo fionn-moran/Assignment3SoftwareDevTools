@@ -37,6 +37,11 @@ fun mainMenu() = readNextInt(
          > |   7) List fulfilled sales                         |
          > -----------------------------------------------------  
          > -----------------------------------------------------  
+         > | Counting options MENU                             |
+         > |   8) Count total Coffee Shops                     |
+         > |   9) Count total closed coffee shops              |
+         > -----------------------------------------------------  
+         > -----------------------------------------------------  
          > |   0) Exit                                         |
          > |  98) Save                                         |
          > |  99) Load                                         |
@@ -54,6 +59,8 @@ fun runMenu() {
             5 -> searchSales()
             6 -> searchForPrice()
             7 -> listFulfilledSales()
+            8 -> countAllCoffeeShops()
+            9 -> countAllClosedCoffeeShops()
             0 -> exitApp()
             98 -> saveCoffeeShops()
             99 -> loadCoffeeShops()
@@ -355,4 +362,11 @@ fun loadCoffeeShops() {
     } catch (e: Exception) {
         System.err.println("Error reading from file: $e")
     }
+}
+
+fun countAllCoffeeShops() {
+    println(CoffeeShopAPI.numberOfCoffeeShops())
+}
+fun countAllClosedCoffeeShops() {
+    println(CoffeeShopAPI.numberOfClosedCoffeeShops())
 }
