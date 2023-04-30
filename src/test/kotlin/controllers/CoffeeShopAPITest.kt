@@ -97,6 +97,23 @@ class CoffeeShopAPITest {
             assertTrue(coffeeShopsString.contains("starbucks"))
             assertTrue(coffeeShopsString.contains("mcdonalds"))
         }
+
+        @Test
+        fun `listClosedCoffeeShops returns No closed Coffee Shops Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyCoffeeShops!!.numberOfClosedCoffeeShops())
+            assertTrue(emptyCoffeeShops!!.listClosedCoffeeShops().lowercase().contains("no closed coffee shops on the system"))
+        }
+
+        @Test
+        fun `listClosedCoffeeShops returns closed shops when ArrayList has closed shops stored`() {
+            assertEquals(1, populatedCoffeeShops!!.numberOfClosedCoffeeShops())
+            val closedCoffeeShopsString = populatedCoffeeShops!!.listClosedCoffeeShops().lowercase()
+            assertTrue(closedCoffeeShopsString.contains("costa"))
+            assertFalse(closedCoffeeShopsString.contains("starbucks"))
+            assertFalse(closedCoffeeShopsString.contains("mcdonalds"))
+        }
+
+
     }
 
     @Nested

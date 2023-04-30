@@ -66,7 +66,7 @@ class CoffeeShopAPI(serializerType: Serializer) {
         else formatSalesListString(sales)
 
     fun listClosedCoffeeShops(): String =
-        if (numberOfClosedCoffeeShops() == 0) "No archived notes stored"
+        if (numberOfClosedCoffeeShops() == 0) "no closed coffee shops on the system"
         else formatListString(coffeeShops.filter { coffeeShop -> coffeeShop.isCoffeeShopClosed })
 
     fun removeCoffeeShop(indexToDelete: Int): CoffeeShop? {
