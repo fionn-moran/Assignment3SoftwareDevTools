@@ -2,9 +2,7 @@ package utils
 
 import models.CoffeeShopSales
 
-
 object Utilities {
-
 
     @JvmStatic
     fun isValidListIndex(index: Int, list: List<Any>): Boolean {
@@ -14,5 +12,5 @@ object Utilities {
     @JvmStatic
     fun formatSetString(salesToFormat: Set<CoffeeShopSales>): String =
         salesToFormat
-            .joinToString(separator = "\n") { sale ->  "\t$sale" }
+            .joinToString(separator = "\n") { sale -> "\t$sale" }
 }

@@ -27,7 +27,7 @@ class CoffeeShopAPITest {
         starbucks = CoffeeShop(2, "Starbucks", "Dublin", "Open", LocalDate.of(2023, 2, 10), false)
         mcdonalds = CoffeeShop(3, "Mcdonalds", "Kilkenny", "Open", LocalDate.of(2020, 5, 5), false)
 
-        //adding 3 Shops to the CoffeeShops api
+        // adding 3 Shops to the CoffeeShops api
         populatedCoffeeShops!!.add(costa!!)
         populatedCoffeeShops!!.add(starbucks!!)
         populatedCoffeeShops!!.add(mcdonalds!!)
@@ -47,7 +47,7 @@ class CoffeeShopAPITest {
         // Add to coffee shop tests
         @Test
         fun `adding a Coffee Shop to a populated list adds to ArrayList`() {
-            val newCoffeeShop = CoffeeShop(1, "Coffee Shop 1", "College", "Open", LocalDate.of(2009,4,9), false)
+            val newCoffeeShop = CoffeeShop(1, "Coffee Shop 1", "College", "Open", LocalDate.of(2009, 4, 9), false)
             assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
             assertTrue(populatedCoffeeShops!!.add(newCoffeeShop))
             assertEquals(4, populatedCoffeeShops!!.numberOfCoffeeShops())
@@ -59,7 +59,7 @@ class CoffeeShopAPITest {
 
         @Test
         fun `adding a Coffee Shop to an empty list adds to ArrayList`() {
-            val newCoffeeShop = CoffeeShop(2, "Coffee Shop 2", "Cork", "Open", LocalDate.of(2010,7,8), false)
+            val newCoffeeShop = CoffeeShop(2, "Coffee Shop 2", "Cork", "Open", LocalDate.of(2010, 7, 8), false)
             assertEquals(0, emptyCoffeeShops!!.numberOfCoffeeShops())
             assertTrue(emptyCoffeeShops!!.add(newCoffeeShop))
             assertEquals(1, emptyCoffeeShops!!.numberOfCoffeeShops())
@@ -90,31 +90,30 @@ class CoffeeShopAPITest {
     inner class UpdateCoffeeShops {
         @Test
         fun `updating a shop that does not exist returns false`() {
-            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(6, CoffeeShop(9, "Coffee 4", "Limerick", "Coffee Shop 12", LocalDate.of(2012,2,19), false)))
-            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(-1, CoffeeShop(20, "Coffee 5", "Limerick", "Coffee Shop 212", LocalDate.of(2017,4,13), false)))
-            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(99, CoffeeShop(40, "Coffee 6", "Limerick", "Coffee Shop 675", LocalDate.of(2016,3,25), false)))
+            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(6, CoffeeShop(9, "Coffee 4", "Limerick", "Coffee Shop 12", LocalDate.of(2012, 2, 19), false)))
+            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(-1, CoffeeShop(20, "Coffee 5", "Limerick", "Coffee Shop 212", LocalDate.of(2017, 4, 13), false)))
+            assertFalse(populatedCoffeeShops!!.updateCoffeeShop(99, CoffeeShop(40, "Coffee 6", "Limerick", "Coffee Shop 675", LocalDate.of(2016, 3, 25), false)))
         }
 
         @Test
         fun `updating a shop that exists returns true and updates`() {
-            //check shop 3 exists and check the contents
+            // check shop 3 exists and check the contents
             assertEquals(mcdonalds, populatedCoffeeShops!!.findCoffeeShop(2))
             assertEquals("Mcdonalds", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopName)
             assertEquals("Kilkenny", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopLocation)
             assertEquals("Open", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopDetails)
-            assertEquals(LocalDate.of(2020,5,5), populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
+            assertEquals(LocalDate.of(2020, 5, 5), populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
             assertEquals(false, populatedCoffeeShops!!.findCoffeeShop(2)!!.isCoffeeShopClosed)
 
-            //update shop 3 with new information and ensure contents updated successfully
-            assertTrue(populatedCoffeeShops!!.updateCoffeeShop(2, CoffeeShop(2, "Coffee Shop 99", "Main Street", "Open 24/7", LocalDate.of(2022,1,1), false)))
+            // update shop 3 with new information and ensure contents updated successfully
+            assertTrue(populatedCoffeeShops!!.updateCoffeeShop(2, CoffeeShop(2, "Coffee Shop 99", "Main Street", "Open 24/7", LocalDate.of(2022, 1, 1), false)))
             assertEquals("Coffee Shop 99", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopName)
             assertEquals("Main Street", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopLocation)
             assertEquals("Open 24/7", populatedCoffeeShops!!.findCoffeeShop(2)!!.shopDetails)
-            assertEquals(LocalDate.of(2022,1,1), populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
+            assertEquals(LocalDate.of(2022, 1, 1), populatedCoffeeShops!!.findCoffeeShop(2)!!.dateAdded)
             assertEquals(false, populatedCoffeeShops!!.findCoffeeShop(2)!!.isCoffeeShopClosed)
         }
     }
-
 
     @Nested
     inner class DeleteCoffeeShops {
@@ -145,11 +144,11 @@ class CoffeeShopAPITest {
             val storingCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             storingCoffeeShops.store()
 
-            //Loading the empty notes.xml file into a new object
+            // Loading the empty notes.xml file into a new object
             val loadedCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             loadedCoffeeShops.load()
 
-            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
             assertEquals(0, storingCoffeeShops.numberOfCoffeeShops())
             assertEquals(0, loadedCoffeeShops.numberOfCoffeeShops())
             assertEquals(storingCoffeeShops.numberOfCoffeeShops(), loadedCoffeeShops.numberOfCoffeeShops())
@@ -164,11 +163,11 @@ class CoffeeShopAPITest {
             storingCoffeeShops.add(mcdonalds!!)
             storingCoffeeShops.store()
 
-            //Loading coffeeShops.xml into a different collection
+            // Loading coffeeShops.xml into a different collection
             val loadedCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
             loadedCoffeeShops.load()
 
-            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
             assertEquals(3, storingCoffeeShops.numberOfCoffeeShops())
             assertEquals(3, loadedCoffeeShops.numberOfCoffeeShops())
             assertEquals(storingCoffeeShops.numberOfCoffeeShops(), loadedCoffeeShops.numberOfCoffeeShops())

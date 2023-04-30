@@ -5,6 +5,8 @@ plugins {
     // Plugin for Dokka - KDoc generating tool
     id("org.jetbrains.dokka") version "1.6.10"
     jacoco
+    // Plugin for Ktlint
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.1"
     application
 }
 
@@ -22,7 +24,7 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     implementation("org.slf4j:slf4j-simple:2.0.6")
 
-    //For Streaming to XML
+    // For Streaming to XML
     implementation("com.thoughtworks.xstream:xstream:1.4.20")
 
     // For generating a Dokka Site from KDoc
@@ -31,7 +33,7 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    //report is always generated after tests run
+    // report is always generated after tests run
     finalizedBy(tasks.jacocoTestReport)
 }
 
