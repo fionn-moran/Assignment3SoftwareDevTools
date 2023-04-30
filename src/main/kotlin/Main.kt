@@ -172,9 +172,13 @@ fun closeCoffeeShop() {
 private fun addSaleToCoffeeShop() {
     val sale: CoffeeShop? = askUserToChooseCoffeeShop()
     if (sale != null) {
-        if (sale.addSale(CoffeeShopSales(saleContents = readNextLine("\t Sale Contents: "))))
+        val saleContents = readNextLine("\tSale Contents: ")
+        val salePrice = readNextLine("\tSale Price: ").toDouble()
+        if (sale.addSale(CoffeeShopSales(saleContents = saleContents, salePrice = salePrice))) {
             println("Add Successful!")
-        else println("Add NOT Successful")
+        } else {
+            println("Add NOT Successful")
+        }
     }
 }
 
@@ -186,10 +190,11 @@ fun updateSaleDetails() {
         val sale: CoffeeShopSales? = askUserToChooseSale(coffeeShop)
         if (sale != null) {
             val newContents = readNextLine("Enter new sale contents: ")
-            if (coffeeShop.updateSale(sale.saleID, CoffeeShopSales(saleContents = newContents))) {
-                println("Sale contents updated")
+            val newSalePrice = readNextLine("If the price has changed, enter the new price: ").toDouble()
+            if (coffeeShop.updateSale(sale.saleID, CoffeeShopSales(saleContents = newContents, salePrice = newSalePrice))) {
+                println("Sale updated")
             } else {
-                println("Sale contents NOT updated")
+                println("Sale NOT updated")
             }
         } else {
             println("Invalid sale Id")
