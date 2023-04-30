@@ -20,7 +20,7 @@ This app has two models - CoffeeShop, and CoffeeShopSales. These models are link
 #### Sales:
 - Menu Items for Adding, Listing, Updating, and Deleting Sales.
   - Listing submenu to allow listing of All/Fulfilled Sales.
-- Menu Items for labelling Coffee Shops - Closed.
+- Menu Items for labelling Sales - Fulfilled.
 - Menu Items for Searching amongst Sales - by Price and by Sale Details.
 
 ### Logging:
