@@ -1,6 +1,7 @@
 package controllers
 
 import models.CoffeeShop
+import models.CoffeeShopSales
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -21,16 +22,28 @@ class CoffeeShopAPITest {
     private var populatedCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("notes.xml")))
     private var emptyCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("notes.xml")))
 
+    private var americano: CoffeeShopSales? = null
+    private var latte: CoffeeShopSales? = null
+    private var mocha: CoffeeShopSales? = null
+
     @BeforeEach
     fun setup() {
         costa = CoffeeShop(1, "Costa", "Waterford", "Open", LocalDate.of(2002, 1, 1), true)
         starbucks = CoffeeShop(2, "Starbucks", "Dublin", "Open", LocalDate.of(2023, 2, 10), false)
         mcdonalds = CoffeeShop(3, "Mcdonalds", "Kilkenny", "Open", LocalDate.of(2020, 5, 5), false)
 
+        americano = CoffeeShopSales(4, "Sale", 2.50, false)
+        latte = CoffeeShopSales(5, "Sell 1", 3.10, true)
+        mocha = CoffeeShopSales(6, "Sold 2", 3.60, false)
+
         // adding 3 Shops to the CoffeeShops api
         populatedCoffeeShops!!.add(costa!!)
         populatedCoffeeShops!!.add(starbucks!!)
         populatedCoffeeShops!!.add(mcdonalds!!)
+
+        costa!!.addSale(americano!!)
+        starbucks!!.addSale(latte!!)
+        mcdonalds!!.addSale(mocha!!)
     }
 
     @AfterEach
