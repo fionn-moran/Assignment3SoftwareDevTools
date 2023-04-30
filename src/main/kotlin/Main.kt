@@ -3,11 +3,9 @@ import models.CoffeeShop
 import models.CoffeeShopSales
 import mu.KotlinLogging
 import persistence.XMLSerializer
-import utils.ScannerInput
 import utils.ScannerInput.readNextChar
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
-import utils.Utilities
 import java.io.File
 import java.time.LocalDate
 
@@ -17,7 +15,8 @@ private val CoffeeShopAPI = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml"))
 
 fun main() = runMenu()
 
-fun mainMenu() = ScannerInput.readNextInt(""" 
+fun mainMenu() = readNextInt(
+    """ 
          > -----------------------------------------------------  
          > |          Coffee Shop Management APP               |
          > -----------------------------------------------------  
@@ -42,7 +41,6 @@ fun mainMenu() = ScannerInput.readNextInt("""
          > ==>> """.trimMargin(">")
 )
 
-
 fun runMenu() {
     do {
         when (val option = mainMenu()) {
@@ -60,7 +58,8 @@ fun runMenu() {
 }
 
 fun listCoffeeShopCrud() {
-        val option = ScannerInput.readNextInt("""
+    val option = readNextInt(
+        """
                  > -----------------------------------
                  > |   1) Add a coffee shop          |
                  > |   2) List all coffee shops      |
@@ -70,22 +69,22 @@ fun listCoffeeShopCrud() {
                  > |   0) Home                       |
                  > -----------------------------------
          > ==>> """.trimMargin(">")
-        )
+    )
 
-        when (option) {
-            1 -> addCoffeeShop()
-            2 -> listCoffeeShops()
-            3 -> updateCoffeeShop()
-            4 -> removeCoffeeShop()
-            5 -> closeCoffeeShop()
-            0 -> mainMenu()
-            else -> println("Invalid option entered: " + option);
-        }
+    when (option) {
+        1 -> addCoffeeShop()
+        2 -> listCoffeeShops()
+        3 -> updateCoffeeShop()
+        4 -> removeCoffeeShop()
+        5 -> closeCoffeeShop()
+        0 -> mainMenu()
+        else -> println("Invalid option entered: $option")
     }
-
+}
 
 fun listCoffeeShopSalesCrud() {
-    val option = ScannerInput.readNextInt("""
+    val option = readNextInt(
+        """
                  > -----------------------------------
                  > |   1) Add a sale to coffee shop  |
                  > |   2) List all sales             |
@@ -104,15 +103,15 @@ fun listCoffeeShopSalesCrud() {
         4 -> deleteSale()
         5 -> fulfillSale()
         0 -> mainMenu()
-        else -> println("Invalid option entered: " + option);
+        else -> println("Invalid option entered: $option")
     }
 }
 // Using user's input data, a note is added to NoteAPI
 fun addCoffeeShop() {
-    //logger.info { "addCoffeeShop() function invoked" }
-    val shopName = ScannerInput.readNextLine("Enter a shop name: ")
-    val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
-    val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
+    // logger.info { "addCoffeeShop() function invoked" }
+    val shopName = readNextLine("Enter a shop name: ")
+    val shopLocation = readNextLine("Enter the shop location: ")
+    val shopDetails = readNextLine("Enter the shop details: ")
     val dateAdded = LocalDate.now()
     val isAdded = CoffeeShopAPI.add(CoffeeShop(shopName = shopName, shopLocation = shopLocation, shopDetails = shopDetails, dateAdded = dateAdded, isCoffeeShopClosed = false))
 
@@ -124,7 +123,7 @@ fun addCoffeeShop() {
 }
 fun listCoffeeShops() {
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
-        val option = ScannerInput.readNextInt(
+        val option = readNextInt(
             """
                   > --------------------------------
                   > |   1) View ALL coffee shops   |
@@ -134,12 +133,12 @@ fun listCoffeeShops() {
         )
 
         when (option) {
-            1 -> listAllCoffeeShops();
-            2 -> listClosedCoffeeShops();
-            else -> println("Invalid option entered: " + option);
+            1 -> listAllCoffeeShops()
+            2 -> listClosedCoffeeShops()
+            else -> println("Invalid option entered: $option")
         }
     } else {
-        println("Option Invalid - No coffee shops stored");
+        println("Option Invalid - No coffee shops stored")
     }
 }
 
@@ -155,15 +154,15 @@ fun updateCoffeeShop() {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
         // only ask the user to choose a coffee shop if coffee shops already exist on the system
-        val id = ScannerInput.readNextInt("Enter the id of the shop to update: ")
+        val id = readNextInt("Enter the id of the shop to update: ")
         if (CoffeeShopAPI.findCoffeeShop(id) != null) {
-            val shopName = ScannerInput.readNextLine("Enter a shop name: ")
-            val shopLocation = ScannerInput.readNextLine("Enter the shop location: ")
-            val shopDetails = ScannerInput.readNextLine("Enter the shop details: ")
+            val shopName = readNextLine("Enter a shop name: ")
+            val shopLocation = readNextLine("Enter the shop location: ")
+            val shopDetails = readNextLine("Enter the shop details: ")
             val dateAdded = LocalDate.now()
 
             // pass the index of the coffee shop and the updated details to NoteAPI for updating and check for success.
-            if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded, isCoffeeShopClosed = false))){
+            if (CoffeeShopAPI.updateCoffeeShop(id, CoffeeShop(0, shopName, shopLocation, shopDetails, dateAdded, isCoffeeShopClosed = false))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -178,7 +177,7 @@ fun removeCoffeeShop() {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
         // only ask the user to choose a shop to remove if there are coffee shops on the system
-        val id = ScannerInput.readNextInt("Enter the id of the shop to remove: ")
+        val id = readNextInt("Enter the id of the shop to remove: ")
         // pass the index of the coffee shop to CoffeeShopAPI for deleting and check for success.
         val coffeeShopToDelete = CoffeeShopAPI.removeCoffeeShop(id)
         if (coffeeShopToDelete != null) {
@@ -193,9 +192,9 @@ fun removeCoffeeShop() {
 fun closeCoffeeShop() {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
-        //only ask the user to choose the coffee shop to close if there are shops on the system.
-        val indexToClose = ScannerInput.readNextInt("Enter the index of the shop to close: ")
-        //pass the index of the shop to CoffeeShopAPI for closing and check for success.
+        // only ask the user to choose the coffee shop to close if there are shops on the system.
+        val indexToClose = readNextInt("Enter the index of the shop to close: ")
+        // pass the index of the shop to CoffeeShopAPI for closing and check for success.
         if (CoffeeShopAPI.closeCoffeeShop(indexToClose)) {
             println("Closure Successful!")
         } else {
@@ -203,7 +202,6 @@ fun closeCoffeeShop() {
         }
     }
 }
-
 
 private fun addSaleToCoffeeShop() {
     val sale: CoffeeShop? = askUserToChooseCoffeeShop()
@@ -217,8 +215,6 @@ private fun addSaleToCoffeeShop() {
         }
     }
 }
-
-
 
 fun updateSaleDetails() {
     val coffeeShop: CoffeeShop? = askUserToChooseCoffeeShop()
@@ -257,15 +253,14 @@ fun fulfillSale() {
     if (coffeeShop != null) {
         val sale: CoffeeShopSales? = askUserToChooseSale(coffeeShop)
         if (sale != null) {
-            var changeStatus = 'X'
+            val changeStatus: Char
             if (sale.isSaleFulfilled) {
                 changeStatus = readNextChar("The sale is fulfilled...do you want to mark it as unfulfilled?")
-                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
                     sale.isSaleFulfilled = false
-            }
-            else {
+            } else {
                 changeStatus = readNextChar("The sale is unfulfilled...do you want to mark it as fulfilled?")
-                if ((changeStatus == 'Y') ||  (changeStatus == 'y'))
+                if ((changeStatus == 'Y') || (changeStatus == 'y'))
                     sale.isSaleFulfilled = true
             }
         }
@@ -282,7 +277,6 @@ fun searchAllCoffeeShops() {
     }
 }
 
-
 fun searchSales() {
     val searchContents = readNextLine("Enter the sale contents to search for: ")
     val searchResults = CoffeeShopAPI.searchSaleByContents(searchContents)
@@ -293,13 +287,11 @@ fun searchSales() {
     }
 }
 
-
 fun listAllSales() {
     println(CoffeeShopAPI.listAllSales())
 }
 
-
-fun listFulfilledSales(){
+fun listFulfilledSales() {
     if (CoffeeShopAPI.numberOfFulfilledSales() > 0) {
         println("Total fulfilled sales: ${CoffeeShopAPI.numberOfFulfilledSales()}")
     }
@@ -313,24 +305,23 @@ fun exitApp() {
 private fun askUserToChooseCoffeeShop(): CoffeeShop? {
     listCoffeeShops()
     if (CoffeeShopAPI.numberOfCoffeeShops() > 0) {
-        val sale = CoffeeShopAPI.findCoffeeShop(ScannerInput.readNextInt("\nEnter the id of the shop you wish to choose: "))
+        val sale = CoffeeShopAPI.findCoffeeShop(readNextInt("\nEnter the id of the shop you wish to choose: "))
         if (sale != null) {
-                return sale //chosen shop exists
-            }
-        } else {
-            println("Coffee Shop does not exist")
+            return sale // chosen shop exists
         }
+    } else {
+        println("Coffee Shop does not exist")
+    }
     return null // Coffee Shop does not exist
 }
 
 private fun askUserToChooseSale(coffeeShop: CoffeeShop): CoffeeShopSales? {
-    if (coffeeShop.numberOfSales() > 0) {
+    return if (coffeeShop.numberOfSales() > 0) {
         print(coffeeShop.listSales())
-        return coffeeShop.findSale(readNextInt("\nEnter the id of the sale: "))
-    }
-    else{
-        println ("No sales for chosen coffee shop")
-        return null
+        coffeeShop.findSale(readNextInt("\nEnter the id of the sale: "))
+    } else {
+        println("No sales for chosen coffee shop")
+        null
     }
 }
 

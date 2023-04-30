@@ -5,7 +5,7 @@ import models.CoffeeShopSales
 import persistence.Serializer
 import utils.Utilities
 
-class CoffeeShopAPI(serializerType: Serializer){
+class CoffeeShopAPI(serializerType: Serializer) {
 
     private var serializer: Serializer = serializerType
 
@@ -26,10 +26,10 @@ class CoffeeShopAPI(serializerType: Serializer){
 
     // updates a previously added note with additional/changed details
     fun updateCoffeeShop(indexToUpdate: Int, coffeeShop: CoffeeShop?): Boolean {
-        //find the coffee shop by the index number
+        // find the coffee shop by the index number
         val foundCoffeeShop = findCoffeeShop(indexToUpdate)
 
-        //if the coffee shop exists, use the coffee shop details passed as parameters to update the found coffee shop in the ArrayList.
+        // if the coffee shop exists, use the coffee shop details passed as parameters to update the found coffee shop in the ArrayList.
         if ((foundCoffeeShop != null) && (coffeeShop != null)) {
             foundCoffeeShop.shopName = coffeeShop.shopName
             foundCoffeeShop.shopLocation = coffeeShop.shopLocation
@@ -38,36 +38,36 @@ class CoffeeShopAPI(serializerType: Serializer){
             return true
         }
 
-        //if the coffee shop was not found, return false, indicating that the update was not successful
+        // if the coffee shop was not found, return false, indicating that the update was not successful
         return false
     }
 
     fun numberOfCoffeeShops() = coffeeShops.size
 
     // helper function formats list of coffee shops and returns them as string
-    private fun formatListString(coffeeShopsToFormat : List<CoffeeShop>) : String =
+    private fun formatListString(coffeeShopsToFormat: List<CoffeeShop>): String =
         coffeeShopsToFormat
-            .joinToString (separator = "\n") { coffeeShop ->
+            .joinToString(separator = "\n") { coffeeShop ->
                 coffeeShops.indexOf(coffeeShop).toString() + ": " + coffeeShop.toString()
             }
 
-    private fun formatSalesListString(salesToFormat : List<CoffeeShopSales>) : String =
+    private fun formatSalesListString(salesToFormat: List<CoffeeShopSales>): String =
         salesToFormat
-            .joinToString (separator = "\n") { sale ->
+            .joinToString(separator = "\n") { sale ->
                 sales.indexOf(sale).toString() + ": " + sale.toString()
             }
     // lists all coffee shops
     fun listAllCoffeeShops(): String =
-        if  (coffeeShops.isEmpty()) "no coffee shops on the system"
+        if (coffeeShops.isEmpty()) "no coffee shops on the system"
         else formatListString(coffeeShops)
 
     fun listAllSales(): String =
-        if  (sales.isEmpty()) "No coffee shops on the system"
+        if (sales.isEmpty()) "No coffee shops on the system"
         else formatSalesListString(sales)
 
     fun listClosedCoffeeShops(): String =
-        if  (numberOfClosedCoffeeShops() == 0) "No archived notes stored"
-        else formatListString(coffeeShops.filter { coffeeShop -> coffeeShop.isCoffeeShopClosed})
+        if (numberOfClosedCoffeeShops() == 0) "No archived notes stored"
+        else formatListString(coffeeShops.filter { coffeeShop -> coffeeShop.isCoffeeShopClosed })
 
     fun removeCoffeeShop(indexToDelete: Int): CoffeeShop? {
         return if (Utilities.isValidListIndex(indexToDelete, coffeeShops)) {
@@ -75,11 +75,10 @@ class CoffeeShopAPI(serializerType: Serializer){
         } else null
     }
 
-
     fun closeCoffeeShop(id: Int): Boolean {
         val foundCoffeeShop = findCoffeeShop(id)
-        if (( foundCoffeeShop != null) && (!foundCoffeeShop.isCoffeeShopClosed)
-        ){
+        if ((foundCoffeeShop != null) && (!foundCoffeeShop.isCoffeeShopClosed)
+        ) {
             foundCoffeeShop.isCoffeeShopClosed = true
             return true
         }
@@ -88,13 +87,15 @@ class CoffeeShopAPI(serializerType: Serializer){
 
     // Counts the total number of all archived notes
     fun numberOfClosedCoffeeShops(): Int = coffeeShops.count {
-            coffeeShop: CoffeeShop -> coffeeShop.isCoffeeShopClosed
+        coffeeShop: CoffeeShop ->
+        coffeeShop.isCoffeeShopClosed
     }
 
     // searches for input text in shop names
-    fun searchByCoffeeShopName (searchString : String) =
+    fun searchByCoffeeShopName(searchString: String) =
         formatListString(
-            coffeeShops.filter { coffeeShop -> coffeeShop.shopName.contains(searchString, ignoreCase = true) })
+            coffeeShops.filter { coffeeShop -> coffeeShop.shopName.contains(searchString, ignoreCase = true) }
+        )
 
     fun searchSaleByContents(searchString: String): String {
         return if (numberOfCoffeeShops() == 0) "No coffee shops stored"
@@ -154,5 +155,3 @@ class CoffeeShopAPI(serializerType: Serializer){
         serializer.write(coffeeShops)
     }
 }
-
-
