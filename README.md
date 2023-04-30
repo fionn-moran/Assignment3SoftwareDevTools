@@ -21,7 +21,7 @@ This app has two models - CoffeeShop, and CoffeeShopSales. These models are link
 - Menu Items for Adding, Updating, and Deleting Sales.
   - Listing submenu to allow listing of Fulfilled Sales.
 - Menu Items for labelling Sales - Fulfilled.
-- Menu Items for Searching amongst Sales - by Sale Details, and by exact price / minimum price.
+- Menu Items for Searching amongst Sales - by Sale Details, by exact price, and minimum / maxium price.
 
 ### Logging:
 - Logging capabilities are added via MicroUtils Kotlin-Logging.
