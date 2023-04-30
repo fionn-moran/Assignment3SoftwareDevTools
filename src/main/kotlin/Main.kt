@@ -28,12 +28,13 @@ fun mainMenu() = readNextInt(
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shops                      | 
          > |   3) Search for all coffee shops (shop name)      |
+         > |   4) List Closed Coffee Shops
          > ----------------------------------------------------- 
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shop Sales                 |                                
-         > |   4) Search for sales (by sold item)              |
-         > |   5) Search sales by price                        |
-         > |   6) List fulfilled sales                         |
+         > |   5) Search for sales (by sold item)              |
+         > |   6) Search sales by price                        |
+         > |   7) List fulfilled sales                         |
          > -----------------------------------------------------  
          > -----------------------------------------------------  
          > |   0) Exit                                         |
@@ -49,9 +50,10 @@ fun runMenu() {
             1 -> listCoffeeShopCrud()
             2 -> listCoffeeShopSalesCrud()
             3 -> searchAllCoffeeShops()
-            4 -> searchSales()
-            5 -> searchForPrice()
-            6 -> listFulfilledSales()
+            4 -> listClosedCoffeeShops()
+            5 -> searchSales()
+            6 -> searchForPrice()
+            7 -> listFulfilledSales()
             0 -> exitApp()
             98 -> saveCoffeeShops()
             99 -> loadCoffeeShops()
