@@ -61,7 +61,7 @@ fun runMenu() {
 
 fun listCoffeeShopCrud() {
         val option = ScannerInput.readNextInt("""
-                   -----------------------------------
+                 > -----------------------------------
                  > |   1) Add a coffee shop          |
                  > |   2) List all coffee shops      |
                  > |   3) Update coffee shop details |
@@ -86,7 +86,7 @@ fun listCoffeeShopCrud() {
 
 fun listCoffeeShopSalesCrud() {
     val option = ScannerInput.readNextInt("""
-                   -----------------------------------
+                 > -----------------------------------
                  > |   1) Add a sale to coffee shop  |
                  > |   2) List all sales             |
                  > |   3) Update sale                |
