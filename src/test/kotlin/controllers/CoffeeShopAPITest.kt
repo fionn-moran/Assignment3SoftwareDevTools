@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import persistence.XMLSerializer
+import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 
@@ -15,8 +17,8 @@ class CoffeeShopAPITest {
     private var costa: CoffeeShop? = null
     private var starbucks: CoffeeShop? = null
     private var mcdonalds: CoffeeShop? = null
-    private var populatedCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI()
-    private var emptyCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI()
+    private var populatedCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("notes.xml")))
+    private var emptyCoffeeShops: CoffeeShopAPI? = CoffeeShopAPI(XMLSerializer(File("notes.xml")))
 
     @BeforeEach
     fun setup() {
@@ -130,6 +132,48 @@ class CoffeeShopAPITest {
             assertEquals(2, populatedCoffeeShops!!.numberOfCoffeeShops())
             assertEquals(starbucks, populatedCoffeeShops!!.removeCoffeeShop(0))
             assertEquals(1, populatedCoffeeShops!!.numberOfCoffeeShops())
+        }
+    }
+
+    @Nested
+    inner class PersistenceTests {
+
+        @Test
+        fun `saving and loading an empty collection in XML doesn't crash app`() {
+            // Saving an empty coffeeShops.XML file.
+            val storingCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
+            storingCoffeeShops.store()
+
+            //Loading the empty notes.xml file into a new object
+            val loadedCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
+            loadedCoffeeShops.load()
+
+            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            assertEquals(0, storingCoffeeShops.numberOfCoffeeShops())
+            assertEquals(0, loadedCoffeeShops.numberOfCoffeeShops())
+            assertEquals(storingCoffeeShops.numberOfCoffeeShops(), loadedCoffeeShops.numberOfCoffeeShops())
+        }
+
+        @Test
+        fun `saving and loading an loaded collection in XML doesn't lose data`() {
+            // Storing 3 shops to the notes.XML file.
+            val storingCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
+            storingCoffeeShops.add(costa!!)
+            storingCoffeeShops.add(starbucks!!)
+            storingCoffeeShops.add(mcdonalds!!)
+            storingCoffeeShops.store()
+
+            //Loading coffeeShops.xml into a different collection
+            val loadedCoffeeShops = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
+            loadedCoffeeShops.load()
+
+            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            assertEquals(3, storingCoffeeShops.numberOfCoffeeShops())
+            assertEquals(3, loadedCoffeeShops.numberOfCoffeeShops())
+            assertEquals(storingCoffeeShops.numberOfCoffeeShops(), loadedCoffeeShops.numberOfCoffeeShops())
+            assertEquals(storingCoffeeShops.findCoffeeShop(0), loadedCoffeeShops.findCoffeeShop(0))
+            assertEquals(storingCoffeeShops.findCoffeeShop(1), loadedCoffeeShops.findCoffeeShop(1))
+            assertEquals(storingCoffeeShops.findCoffeeShop(2), loadedCoffeeShops.findCoffeeShop(2))
         }
     }
 }

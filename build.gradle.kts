@@ -20,7 +20,7 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.6")
 
     //For Streaming to XML
-    implementation("com.thoughtworks.xstream:xstream:1.4.18")
+    implementation("com.thoughtworks.xstream:xstream:1.4.20")
 }
 
 tasks.test {
