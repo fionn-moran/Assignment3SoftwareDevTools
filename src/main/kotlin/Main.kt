@@ -2,15 +2,17 @@ import controllers.CoffeeShopAPI
 import models.CoffeeShop
 import models.CoffeeShopSales
 import mu.KotlinLogging
+import persistence.XMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextChar
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import utils.Utilities
+import java.io.File
 
 private val logger = KotlinLogging.logger {}
 
-private val CoffeeShopAPI = CoffeeShopAPI()
+private val CoffeeShopAPI = CoffeeShopAPI(XMLSerializer(File("coffeeShops.xml")))
 
 fun main() = runMenu()
 
@@ -39,6 +41,8 @@ fun mainMenu() = ScannerInput.readNextInt("""
          > |   11) List fulfilled sales                        |
          > -----------------------------------------------------  
          > |   0) Exit                                         |
+         > |  98) Save                                         |
+         > |  99) Load                                         |
          > -----------------------------------------------------  
          > ==>> """.trimMargin(">")
 )
@@ -60,6 +64,8 @@ fun runMenu() {
             11 -> listFulfilledSales()
             20 -> closeCoffeeShop()
             0 -> exitApp()
+            98 -> saveCoffeeShops()
+            99 -> loadCoffeeShops()
             else -> println("Invalid menu choice: $option")
         }
     } while (true)
@@ -284,5 +290,21 @@ private fun askUserToChooseSale(coffeeShop: CoffeeShop): CoffeeShopSales? {
     else{
         println ("No sales for chosen coffee shop")
         return null
+    }
+}
+
+fun saveCoffeeShops() {
+    try {
+        CoffeeShopAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+fun loadCoffeeShops() {
+    try {
+        CoffeeShopAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
     }
 }
