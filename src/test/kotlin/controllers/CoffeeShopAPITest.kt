@@ -214,4 +214,20 @@ class CoffeeShopAPITest {
             assertFalse(searchResults.contains("Swim"))
         }
     }
+
+    @Nested
+    inner class CountingMethods {
+
+        @Test
+        fun numberOfCoffeeShopsCalculatedCorrectly() {
+            assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
+            assertEquals(0, emptyCoffeeShops!!.numberOfCoffeeShops())
+        }
+
+        @Test
+        fun numberOfClosedCoffeeShopsCalculatedCorrectly() {
+            assertEquals(1, populatedCoffeeShops!!.numberOfClosedCoffeeShops())
+            assertEquals(0, emptyCoffeeShops!!.numberOfClosedCoffeeShops())
+        }
+    }
 }
