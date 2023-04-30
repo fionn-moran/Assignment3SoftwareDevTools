@@ -4,6 +4,7 @@ import models.CoffeeShopSales
 import mu.KotlinLogging
 import persistence.XMLSerializer
 import utils.ScannerInput.readNextChar
+import utils.ScannerInput.readNextDouble
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import java.io.File
@@ -31,7 +32,8 @@ fun mainMenu() = readNextInt(
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shop Sales                 |                                
          > |   4) Search for sales (by sold item)              |
-         > |   5) List fulfilled sales                         |
+         > |   5) Search sales by price                        |
+         > |   6) List fulfilled sales                         |
          > -----------------------------------------------------  
          > -----------------------------------------------------  
          > |   0) Exit                                         |
@@ -48,7 +50,8 @@ fun runMenu() {
             2 -> listCoffeeShopSalesCrud()
             3 -> searchAllCoffeeShops()
             4 -> searchSales()
-            5 -> listFulfilledSales()
+            5 -> searchForPrice()
+            6 -> listFulfilledSales()
             0 -> exitApp()
             98 -> saveCoffeeShops()
             99 -> loadCoffeeShops()
@@ -286,6 +289,17 @@ fun searchSales() {
         println(searchResults)
     }
 }
+
+fun searchForPrice() {
+    val searchPrice = readNextDouble("Enter the sale price to search for: ")
+    val searchResults = CoffeeShopAPI.searchSaleByPrice(searchPrice)
+    if (searchResults.isEmpty()) {
+        println("No sales found from that price")
+    } else {
+        println(searchResults)
+    }
+}
+
 
 fun listAllSales() {
     println(CoffeeShopAPI.listAllSales())

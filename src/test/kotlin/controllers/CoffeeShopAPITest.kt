@@ -176,4 +176,42 @@ class CoffeeShopAPITest {
             assertEquals(storingCoffeeShops.findCoffeeShop(2), loadedCoffeeShops.findCoffeeShop(2))
         }
     }
+
+    @Nested
+    inner class SearchMethods {
+
+        @Test
+        fun `search coffee shops by name returns no notes when no shops with that name exist`() {
+            //Searching a populated collection for a name that doesn't exist.
+            assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
+            val searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("no results expected")
+            assertTrue(searchResults.isEmpty())
+
+            //Searching an empty collection
+            assertEquals(0, emptyCoffeeShops!!.numberOfCoffeeShops())
+            assertTrue(emptyCoffeeShops!!.searchByCoffeeShopName("").isEmpty())
+        }
+
+        @Test
+        fun `search coffee shop by name returns shops when shops with that name exist`() {
+            assertEquals(3, populatedCoffeeShops!!.numberOfCoffeeShops())
+
+            //Searching a populated collection for a full title that exists (case matches exactly)
+            var searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("Costa")
+            assertTrue(searchResults.contains("Costa"))
+            assertFalse(searchResults.contains("Test App"))
+
+            //Searching a populated collection for a partial title that exists (case matches exactly)
+            searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("Cos")
+            assertTrue(searchResults.contains("Costa"))
+            assertTrue(searchResults.contains("Costa"))
+            assertFalse(searchResults.contains("Swim"))
+
+            //Searching a populated collection for a partial title that exists (case doesn't match)
+            searchResults = populatedCoffeeShops!!.searchByCoffeeShopName("osT")
+            assertTrue(searchResults.contains("Costa"))
+            assertTrue(searchResults.contains("Costa"))
+            assertFalse(searchResults.contains("Swim"))
+        }
+    }
 }

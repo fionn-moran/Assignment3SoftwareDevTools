@@ -113,6 +113,22 @@ class CoffeeShopAPI(serializerType: Serializer) {
         }
     }
 
+    fun searchSaleByPrice(searchPrice: Double): String {
+        return if (numberOfCoffeeShops() == 0) "No coffee shops stored"
+        else {
+            var listOfCoffeeShops = ""
+            for (coffeeShop in coffeeShops) {
+                for (sale in coffeeShop.sales) {
+                    if (sale.salePrice == searchPrice) {
+                        listOfCoffeeShops += "${coffeeShop.shopID}: ${coffeeShop.shopName} \n\t${sale}\n"
+                    }
+                }
+            }
+            if (listOfCoffeeShops == "") "No items found for: $searchPrice"
+            else listOfCoffeeShops
+        }
+    }
+
     // ----------------------------------------------
     //  LISTING METHODS FOR SALES
     // ----------------------------------------------
