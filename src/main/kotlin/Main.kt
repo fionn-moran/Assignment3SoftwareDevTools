@@ -27,12 +27,12 @@ fun mainMenu() = ScannerInput.readNextInt("""
          > -----------------------------------------------------  
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shops                      | 
-         > |   9) Search for all coffee shops (shop name)      |
+         > |   3) Search for all coffee shops (shop name)      |
          > ----------------------------------------------------- 
          > -----------------------------------------------------  
          > | REPORT MENU FOR Coffee Shop Sales                 |                                
-         > |   10) Search for sales (by sold item)             |
-         > |   11) List fulfilled sales                        |
+         > |   4) Search for sales (by sold item)              |
+         > |   5) List fulfilled sales                         |
          > -----------------------------------------------------  
          > -----------------------------------------------------  
          > |   0) Exit                                         |
@@ -48,16 +48,9 @@ fun runMenu() {
         when (val option = mainMenu()) {
             1 -> listCoffeeShopCrud()
             2 -> listCoffeeShopSalesCrud()
-            3 -> updateCoffeeShop()
-            4 -> removeCoffeeShop()
-            5 -> addSaleToCoffeeShop()
-            6 -> updateSaleDetails()
-            7 -> deleteSale()
-            8 -> fulfillSale()
-            9 -> searchAllCoffeeShops()
-            10 -> searchSales()
-            11 -> listFulfilledSales()
-            20 -> closeCoffeeShop()
+            3 -> searchAllCoffeeShops()
+            4 -> searchSales()
+            5 -> listFulfilledSales()
             0 -> exitApp()
             98 -> saveCoffeeShops()
             99 -> loadCoffeeShops()
@@ -106,7 +99,7 @@ fun listCoffeeShopSalesCrud() {
 
     when (option) {
         1 -> addSaleToCoffeeShop()
-      //  2 -> listCoffeeShopSales()
+        2 -> listAllSales()
         3 -> updateSaleDetails()
         4 -> deleteSale()
         5 -> fulfillSale()
